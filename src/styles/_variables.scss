@@ -1,0 +1,215 @@
+// Design System Variables
+// ========================
+
+// Theme Colors (CSS Custom Properties)
+$colors-dark: (
+  bg-primary: #0a0a0f,
+  bg-secondary: #12121a,
+  bg-tertiary: #1a1a25,
+  glass-bg: rgba(18, 18, 26, 0.7),
+  glass-border: rgba(255, 255, 255, 0.08),
+  accent-primary: #6366f1,
+  accent-secondary: #8b5cf6,
+  accent-tertiary: #06b6d4,
+  text-primary: #f8fafc,
+  text-secondary: #94a3b8,
+  text-muted: #64748b,
+  success: #10b981,
+  border-color: rgba(255, 255, 255, 0.06)
+);
+
+$colors-light: (
+  bg-primary: #f8fafc,
+  bg-secondary: #ffffff,
+  bg-tertiary: #f1f5f9,
+  glass-bg: rgba(255, 255, 255, 0.7),
+  glass-border: rgba(0, 0, 0, 0.08),
+  accent-primary: #6366f1,
+  accent-secondary: #8b5cf6,
+  accent-tertiary: #0891b2,
+  text-primary: #0f172a,
+  text-secondary: #475569,
+  text-muted: #94a3b8,
+  success: #10b981,
+  border-color: rgba(0, 0, 0, 0.06)
+);
+
+// CSS Custom Properties Mapping
+:root {
+  // Dark theme (default)
+  --bg-primary: #{map-get($colors-dark, bg-primary)};
+  --bg-secondary: #{map-get($colors-dark, bg-secondary)};
+  --bg-tertiary: #{map-get($colors-dark, bg-tertiary)};
+  --glass-bg: #{map-get($colors-dark, glass-bg)};
+  --glass-border: #{map-get($colors-dark, glass-border)};
+  --accent-primary: #{map-get($colors-dark, accent-primary)};
+  --accent-secondary: #{map-get($colors-dark, accent-secondary)};
+  --accent-tertiary: #{map-get($colors-dark, accent-tertiary)};
+  --text-primary: #{map-get($colors-dark, text-primary)};
+  --text-secondary: #{map-get($colors-dark, text-secondary)};
+  --text-muted: #{map-get($colors-dark, text-muted)};
+  --success: #{map-get($colors-dark, success)};
+  --border-color: #{map-get($colors-dark, border-color)};
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-neon: 0 0 40px rgba(99, 102, 241, 0.3);
+  --shadow-hover: 0 0 60px rgba(139, 92, 246, 0.2);
+}
+
+:root[data-theme="light"] {
+  --bg-primary: #{map-get($colors-light, bg-primary)};
+  --bg-secondary: #{map-get($colors-light, bg-secondary)};
+  --bg-tertiary: #{map-get($colors-light, bg-tertiary)};
+  --glass-bg: #{map-get($colors-light, glass-bg)};
+  --glass-border: #{map-get($colors-light, glass-border)};
+  --accent-primary: #{map-get($colors-light, accent-primary)};
+  --accent-secondary: #{map-get($colors-light, accent-secondary)};
+  --accent-tertiary: #{map-get($colors-light, accent-tertiary)};
+  --text-primary: #{map-get($colors-light, text-primary)};
+  --text-secondary: #{map-get($colors-light, text-secondary)};
+  --text-muted: #{map-get($colors-light, text-muted)};
+  --success: #{map-get($colors-light, success)};
+  --border-color: #{map-get($colors-light, border-color)};
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-neon: 0 0 30px rgba(99, 102, 241, 0.15);
+  --shadow-hover: 0 0 40px rgba(139, 92, 246, 0.15);
+}
+
+// SCSS Variables (fallback / internal use)
+$bg-primary: var(--bg-primary);
+$bg-secondary: var(--bg-secondary);
+$bg-tertiary: var(--bg-tertiary);
+$glass-bg: var(--glass-bg);
+$glass-border: var(--glass-border);
+$accent-primary: var(--accent-primary);
+$accent-secondary: var(--accent-secondary);
+$accent-tertiary: var(--accent-tertiary);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$text-muted: var(--text-muted);
+$success: var(--success);
+$border-color: var(--border-color);
+$shadow-card: var(--shadow-card);
+$shadow-neon: var(--shadow-neon);
+$shadow-hover: var(--shadow-hover);
+
+$gradient-primary: linear-gradient(135deg, $accent-primary 0%, $accent-secondary 100%);
+$gradient-glow: linear-gradient(135deg, $accent-primary 0%, $accent-tertiary 100%);
+
+// Typography
+$font-heading: 'Sora', sans-serif;
+$font-body: 'DM Sans', sans-serif;
+$font-mono: 'JetBrains Mono', monospace;
+
+$h1-size: 56px;
+$h1-weight: 700;
+$h1-tracking: -0.02em;
+
+$h2-size: 40px;
+$h2-weight: 600;
+$h2-tracking: -0.01em;
+
+$h3-size: 28px;
+$h3-weight: 600;
+
+$h4-size: 20px;
+$h4-weight: 600;
+
+$body-large: 18px;
+$body-size: 16px;
+$small-size: 14px;
+
+// Spacing
+$section-padding: 80px;
+$section-padding-mobile: 60px;
+$container-max: 1400px;
+$grid-gap: 32px;
+$grid-gap-mobile: 24px;
+$card-padding: 32px;
+
+// Border Radius
+$radius-card: 16px;
+$radius-button: 12px;
+$radius-input: 8px;
+$radius-avatar: 50%;
+
+// Breakpoints
+$mobile: 768px;
+$tablet: 1024px;
+
+// Mixins
+@mixin glassmorphism {
+  background: $glass-bg;
+  backdrop-filter: blur(20px);
+}
+
+@mixin gradient-text {
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@mixin neon-glow {
+  box-shadow: $shadow-neon;
+}
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: $mobile) { @content; }
+  } @else if $breakpoint == tablet {
+    @media (max-width: $tablet) { @content; }
+  }
+}
+
+@mixin fade-in-up($delay: 0s) {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: $delay;
+}
+
+// Animations
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.5);
+  }
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  50% { border-color: transparent }
+}

@@ -1,0 +1,302 @@
+@use 'variables' as *;
+
+// Reset & Base
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-body;
+  background: $bg-primary;
+  color: $text-primary;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  font-weight: $h3-weight;
+  line-height: 1.2;
+  color: $text-primary;
+}
+
+h1 {
+  font-size: $h1-size;
+  font-weight: $h1-weight;
+  letter-spacing: $h1-tracking;
+
+  @include respond-to(mobile) {
+    font-size: 36px;
+  }
+}
+
+h2 {
+  font-size: $h2-size;
+  font-weight: $h2-weight;
+  letter-spacing: $h2-tracking;
+
+  @include respond-to(mobile) {
+    font-size: 28px;
+  }
+}
+
+h3 {
+  font-size: $h3-size;
+  font-weight: $h3-weight;
+
+  @include respond-to(mobile) {
+    font-size: 22px;
+  }
+}
+
+h4 {
+  font-size: $h4-size;
+  font-weight: $h4-weight;
+}
+
+p {
+  font-size: $body-size;
+  color: $text-secondary;
+  line-height: 1.7;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+input, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+// Utility Classes
+.container {
+  width: 100%;
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: $section-padding 0;
+
+  @include respond-to(mobile) {
+    padding: $section-padding-mobile 0;
+  }
+}
+
+.gradient-text {
+  @include gradient-text;
+}
+
+.glass {
+  @include glassmorphism;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: $radius-button;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+
+  &-primary {
+    background: $gradient-primary;
+    color: $text-primary;
+    @include neon-glow;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-hover;
+    }
+  }
+
+  &-secondary {
+    @include glassmorphism;
+    color: $text-primary;
+    border: 1px solid $accent-primary;
+
+    &:hover {
+      background: rgba($accent-primary, 0.1);
+      border-color: $accent-secondary;
+    }
+  }
+
+  &-ghost {
+    color: $text-secondary;
+
+    &:hover {
+      color: $text-primary;
+    }
+  }
+}
+
+// Card Base
+.card {
+  @include glassmorphism;
+  border-radius: $radius-card;
+  padding: $card-padding;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-hover;
+  }
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $accent-primary;
+  border-radius: 4px;
+
+  &:hover {
+    background: $accent-secondary;
+  }
+}
+
+// Selection
+::selection {
+  background: rgba($accent-primary, 0.3);
+  color: $text-primary;
+}
+
+// Focus States
+:focus-visible {
+  outline: 2px solid $accent-primary;
+  outline-offset: 2px;
+}
+
+// Page Transition
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
+// Animations
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Grid System
+.grid {
+  display: grid;
+  gap: $grid-gap;
+
+  @include respond-to(mobile) {
+    gap: $grid-gap-mobile;
+  }
+
+  &-2 {
+    grid-template-columns: repeat(2, 1fr);
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &-3 {
+    grid-template-columns: repeat(3, 1fr);
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &-4 {
+    grid-template-columns: repeat(4, 1fr);
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Section Header (shared across components)
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: $accent-primary;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(32px, 5vw, 48px);
+  margin-bottom: 16px;
+}
+
+.section-description {
+  max-width: 600px;
+  margin: 0 auto;
+  color: $text-secondary;
+  font-size: 18px;
+}

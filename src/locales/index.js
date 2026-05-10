@@ -1,0 +1,31 @@
+import { createI18n } from 'vue-i18n'
+import en from './en.json'
+import fr from './fr.json'
+
+const i18n = createI18n({
+  legacy: false,
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages: {
+    en,
+    fr
+  },
+  datetimeFormats: {
+    en: {
+      short: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }
+    },
+    fr: {
+      short: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }
+    }
+  }
+})
+
+export default i18n

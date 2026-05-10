@@ -1,0 +1,195 @@
+{
+  "nav": {
+    "about": "À propos",
+    "skills": "Compétences",
+    "projects": "Projets",
+    "experience": "Expérience",
+    "contact": "Contact",
+    "letsTalk": "Discutons"
+  },
+  "hero": {
+    "badge": "Disponible pour de nouvelles opportunités",
+    "title": "Bonjour, je suis {name}",
+    "subtitle": "{title}",
+    "description": "Je crée des interfaces scalables avec Vue, Angular et des outils modernes",
+    "viewWork": "Voir mes projets",
+    "getInTouch": "Me contacter",
+    "scrollToExplore": "Découvrir"
+  },
+  "skills": {
+    "label": "Compétences Techniques",
+    "title": "Compétences & Technologies",
+    "description": "Une boîte à outils complète acquise au fil des années à deliverer des applications enterprise",
+    "categories": {
+      "frontendEngineering": "Ingénierie Frontend",
+      "uiUxDesign": "UI/UX & Design",
+      "backendEngineering": "Ingénierie Backend",
+      "dataVisualisation": "Données & Visualisation",
+      "toolsTesting": "Outils & Tests"
+    },
+    "years": "Années d'Expérience",
+    "delivered": "Projets Livrés",
+    "technologies": "Technologies",
+    "advanced": "Avancé"
+  },
+  "projects": {
+    "label": "Projets en Vedette",
+    "title": "Projets Réalisés",
+    "description": "Une sélection de projets mettant en valeur mon expertise en Vue, Angular et architecture frontend moderne",
+    "filters": {
+      "all": "Tous les Projets",
+      "vue": "Vue.js",
+      "angular": "Angular",
+      "react": "React",
+      "storybook": "Design Systems"
+    },
+    "featured": "En vedette",
+    "liveDemo": "Démo",
+    "source": "Code",
+    "noResults": "Aucun projet trouvé pour ce filtre.",
+    "list": [
+      {
+        "id": 1,
+        "title": "Dashboard SaaS Enterprise",
+        "description": "Construit un dashboard analytique complet gérant 50k+ points de données/seconde avec des charts en temps réel, widgets personnalisés et contrôle d'accès par rôles. Réduit la taille du bundle de 40% grâce au code splitting.",
+        "tech": ["Vue 3", "Chart.js", "TypeScript", "Vite"],
+        "image": "dashboard",
+        "liveUrl": "#",
+        "githubUrl": "#",
+        "featured": true
+      },
+      {
+        "id": 2,
+        "title": "Librairie de Composants & Design System",
+        "description": "Architected un design system de 60+ composants avec documentation Storybook, approche accessibilité-first et couverture de tests complète. Utilisé par 12 équipes produit.",
+        "tech": ["Vue", "Storybook", "SCSS", "Jest"],
+        "image": "design-system",
+        "liveUrl": "#",
+        "githubUrl": "#",
+        "featured": true
+      },
+      {
+        "id": 3,
+        "title": "Plateforme E-Commerce",
+        "description": "Direction du développement frontend pour une plateforme e-commerce à 50M$/an avec SSR, filtrage avancé, optimisation du panier et capacités PWA. Score Lighthouse 95+.",
+        "tech": ["Angular", "RxJS", "Node.js", "Redis"],
+        "image": "ecommerce",
+        "liveUrl": "#",
+        "githubUrl": "#",
+        "featured": true
+      },
+      {
+        "id": 4,
+        "title": "Plateforme Analytique Temps Réel",
+        "description": "Développé un moteur analytique powered par WebSocket avec mises à jour sub-100ms, visualisations D3 personnalisées et gestion d'état efficace pour le monitoring de 10k+ utilisateurs concurrents.",
+        "tech": ["Vue", "D3.js", "WebSocket", "Pinia"],
+        "image": "analytics",
+        "liveUrl": "#",
+        "githubUrl": "#",
+        "featured": false
+      },
+      {
+        "id": 5,
+        "title": "Suite Admin Panel",
+        "description": "Créé des panels admin modulaires avec 20+ modules pré-build, theming dynamique et architecture multi-tenant. Servi de base pour 8 projets clients.",
+        "tech": ["React", "Material UI", "GraphQL", "Apollo"],
+        "image": "admin",
+        "liveUrl": "#",
+        "githubUrl": "#",
+        "featured": false
+      },
+      {
+        "id": 6,
+        "title": "Application Mobile Bancaire",
+        "description": "Construit une application mobile hybride avec performance type natif utilisant React Native, authentification biométrique, architecture offline-first et conformité accessibilité (WCAG 2.1 AA).",
+        "tech": ["React Native", "TypeScript", "Redux", "Jest"],
+        "image": "mobile",
+        "liveUrl": "#",
+        "githubUrl": "#",
+        "featured": false
+      }
+    ]
+  },
+  "experience": {
+    "label": "Parcours Professionnel",
+    "title": "Expérience",
+    "description": "Un timeline de croissance professionnelle et de contributions percutantes",
+    "list": [
+      {
+        "id": 1,
+        "company": "TechFlow Inc.",
+        "logo": "TF",
+        "role": "Ingénieur Frontend Senior",
+        "duration": "2022 - Présent",
+        "location": "San Francisco, CA",
+        "description": "Direction de l'architecture frontend pour une plateforme SaaS B2B servant 500+ clients enterprise. Implémenté une architecture micro-frontend, réduit les temps de build de 60% et établi des standards de qualité de code.",
+        "highlights": ["Micro-frontend", "Leadership d'équipe", "Design Système"]
+      },
+      {
+        "id": 2,
+        "company": "StartupLabs",
+        "logo": "SL",
+        "role": "Tech Lead Frontend",
+        "duration": "2020 - 2022",
+        "location": "New York, NY",
+        "description": "Passé de développeur senior à tech lead, construisant le produit central du seed à la Series A. Recruté et mentoré 4 développeurs frontend, établi un design system utilisé sur tous les produits.",
+        "highlights": ["Design Systems", "Mentorat", "Développement Produit"]
+      },
+      {
+        "id": 3,
+        "company": "Digital Agency Pro",
+        "logo": "DA",
+        "role": "Développeur Frontend",
+        "duration": "2018 - 2020",
+        "location": "Austin, TX",
+        "description": "Livré 15+ projets clients incluant sites e-commerce, campagnes marketing et applications web. Spécialisé en Vue.js et Angular avec emphase sur la performance.",
+        "highlights": ["Vue.js", "Angular", "Optimisation Performance"]
+      }
+    ]
+  },
+  "contact": {
+    "label": "Me Contacter",
+    "title": "Restons en Contact",
+    "description": "Vous avez un projet en tête ou souhaitez collaborer ? J'adorerais vous entendre.",
+    "form": {
+      "name": "Nom",
+      "email": "Email",
+      "message": "Message",
+      "namePlaceholder": "Jean Dupont",
+      "emailPlaceholder": "jean{'@'}example.com",
+      "messagePlaceholder": "Parlez-moi de votre projet...",
+      "send": "Envoyer",
+      "sending": "Envoi..."
+    },
+    "validation": {
+      "nameRequired": "Le nom est requis",
+      "emailRequired": "L'email est requis",
+      "emailInvalid": "Veuillez entrer un email valide",
+      "messageRequired": "Le message est requis",
+      "messageTooShort": "Le message doit contenir au moins 10 caractères"
+    },
+    "success": "Message envoyé avec succès !",
+    "info": {
+      "email": "Email",
+      "location": "Localisation"
+    },
+    "availability": {
+      "title": "Disponible pour des opportunités",
+      "description": "Ouvert aux postes en CDI et missions freelance"
+    },
+    "social": "Me suivre sur"
+  },
+  "footer": {
+    "tagline": "Construire le futur, un composant à la fois.",
+    "navigation": "Navigation",
+    "connect": "Connexion",
+    "copyright": "Créé avec Vue"
+  },
+  "data": {
+    "name": "Mohamed Ali GHarsellaoui",
+    "title": "Ingénieur Frontend Senior",
+    "about": "Je suis un ingénieur frontend passionné avec plus de 6 ans d'expérience dans la création d'applications web haute performance. Je suis spécialisé dans les écosystèmes Vue.js et Angular, avec une expertise approfondie en design systems, visualisation de données et outils pour développeurs.",
+    "email": "alex.chen@email.dev",
+    "location": "San Francisco, CA"
+  }
+}
