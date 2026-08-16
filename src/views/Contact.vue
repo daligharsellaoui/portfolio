@@ -14,7 +14,8 @@ const { data: portfolioData } = usePortfolioData()
 const form = reactive({
   name: '',
   email: '',
-  message: ''
+  message: '',
+  website: ''
 })
 
 const errors = reactive({
@@ -88,7 +89,7 @@ const handleSubmit = async () => {
     const res = await fetch('/api/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: form.name, email: form.email, message: form.message })
+      body: JSON.stringify({ name: form.name, email: form.email, message: form.message, website: form.website })
     })
     if (!res.ok) throw new Error('send failed')
 
@@ -162,6 +163,17 @@ const formLabels = computed(() => ({
           <h3 class="form-title">
             {{ t('contact.form.title') }}
           </h3>
+
+          <!-- Honeypot: hidden from humans, irresistible to bots -->
+          <input
+            v-model="form.website"
+            type="text"
+            name="website"
+            class="honeypot"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          >
 
           <MgInput
             v-model="form.name"
@@ -355,6 +367,16 @@ const formLabels = computed(() => ({
   :deep(.mg-input) {
     margin-bottom: 20px;
   }
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .submit-btn {

@@ -7,6 +7,50 @@ import nodemailer from 'nodemailer'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+// --- Basic spam protection ---------------------------------------------
+
+// Honeypot field name — must match the hidden input in the contact form.
+// Bots tend to fill every input; humans never see it. If it's filled,
+// silently accept the request but do NOT send any email.
+const HONEYPOT_FIELD = 'website'
+
+// Basic in-memory rate limit: max submissions per IP per window.
+// Note: serverless instances are ephemeral, so this protects per warm
+// instance — enough to blunt simple abuse. For a strict global limit,
+// swap this Map for Vercel KV (Upstash Redis).
+const RATE_LIMIT = { max: 5, windowMs: 10 * 60 * 1000 }
+const hits = new Map() // ip -> [timestamp, ...]
+
+const rateLimited = (ip) => {
+  const now = Date.now()
+  const windowStart = now - RATE_LIMIT.windowMs
+  const recent = (hits.get(ip) || []).filter((ts) => ts > windowStart)
+
+  if (recent.length >= RATE_LIMIT.max) {
+    hits.set(ip, recent)
+    return true
+  }
+
+  recent.push(now)
+  hits.set(ip, recent)
+
+  // Opportunistic cleanup so the map never grows unbounded.
+  if (hits.size > 1000) {
+    for (const [key, list] of hits) {
+      if (list.every((ts) => ts <= windowStart)) hits.delete(key)
+    }
+  }
+  return false
+}
+
+const clientIp = (req) => {
+  const fwd = req.headers['x-forwarded-for']
+  if (typeof fwd === 'string' && fwd.length) return fwd.split(',')[0].trim()
+  return req.socket?.remoteAddress || 'unknown'
+}
+
+// ------------------------------------------------------------------------
+
 export default async function handler(req, res) {
   // CORS is not needed: the form posts to the same origin (/api/send-email).
 
@@ -16,7 +60,21 @@ export default async function handler(req, res) {
     return
   }
 
-  const { name, email, message } = req.body || {}
+  const body = req.body || {}
+
+  // Honeypot: filled by bots → pretend success, drop silently.
+  if (body[HONEYPOT_FIELD]) {
+    res.status(200).json({ ok: true })
+    return
+  }
+
+  // Rate limit: too many submissions from the same IP.
+  if (rateLimited(clientIp(req))) {
+    res.status(429).json({ error: 'Too many requests' })
+    return
+  }
+
+  const { name, email, message } = body
 
   if (!name || !email || !message) {
     res.status(400).json({ error: 'Missing fields' })
