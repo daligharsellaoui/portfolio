@@ -344,9 +344,13 @@ if (typeof window !== 'undefined') {
   top: 100%;
   left: 0;
   right: 0;
-  @include glassmorphism;
+  // Solid panel (not glass): nested backdrop-filters inside a fixed
+  // element render glitchily on iOS Safari, especially when the theme
+  // or locale changes and forces a re-composite.
+  background: $bg-secondary;
   padding: 24px;
   border-top: 1px solid $border-color;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
 }
 
 :deep(.mobile-menu .mobile-nav) {

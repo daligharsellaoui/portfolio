@@ -6,7 +6,7 @@ $colors-dark: (
   bg-primary: #0a0a0f,
   bg-secondary: #12121a,
   bg-tertiary: #1a1a25,
-  glass-bg: rgba(18, 18, 26, 0.7),
+  glass-bg: rgba(18, 18, 26, 0.85),
   glass-border: rgba(255, 255, 255, 0.08),
   accent-primary: #a1cdf4,
   accent-secondary: #3b82f6,
@@ -22,7 +22,7 @@ $colors-light: (
   bg-primary: #f8fafc,
   bg-secondary: #ffffff,
   bg-tertiary: #f1f5f9,
-  glass-bg: rgba(255, 255, 255, 0.7),
+  glass-bg: rgba(255, 255, 255, 0.85),
   glass-border: rgba(0, 0, 0, 0.08),
   accent-primary: #a1cdf4,
   accent-secondary: #3b82f6,
@@ -148,6 +148,7 @@ $tablet: 1024px;
 @mixin glassmorphism {
   background: $glass-bg;
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 @mixin hairline {
