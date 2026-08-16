@@ -6,6 +6,7 @@ export const portfolioDataFr = {
   tagline: "Je conçois des logiciels qui rendent simple le travail complexe.",
   about: `Je suis un ingénieur produit de Tunis qui a passé les cinq dernières années à concevoir des logiciels pour des personnes dont le travail est réellement complexe — médecins, équipes de restauration, organisateurs d'événements, opérateurs d'entreprise. Mon métier : transformer des flux de travail complexes en interfaces qui semblent évidentes. Je travaille sur toute la surface produit : architecture, systèmes de composants, gestion d'état, et les petits détails qui rendent un logiciel agréable à utiliser.`,
   location: "Tunis, Tunisie",
+  cv: "cv-fr.pdf",
   products: [
     {
       id: "doctor-me",

@@ -6,6 +6,7 @@ export const portfolioData = {
   tagline: "I build software that makes complex work feel simple.",
   about: `I'm a product engineer from Tunis who has spent the last five years building software for people whose work is genuinely complicated — doctors, restaurant teams, event organizers, enterprise operators. My job is to take complex, multi-step workflows and turn them into interfaces that feel obvious. I work across the whole product surface: architecture, component systems, state, and the small details that make software pleasant to use.`,
   location: "Tunis, Tunisia",
+  cv: "cv-en.pdf",
   products: [
     {
       id: "doctor-me",

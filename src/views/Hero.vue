@@ -93,7 +93,7 @@ const handleImageError = () => {
           </MgButton>
           <MgButton
             variant="ghost"
-            href="/cv.pdf"
+            :href="`/${portfolioData.cv}`"
             download
           >
             <Download size="18" />
