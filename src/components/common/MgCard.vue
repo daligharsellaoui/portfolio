@@ -52,7 +52,7 @@ defineProps({
   &.is-hoverable:hover {
     transform: translateY(-8px);
     box-shadow: $shadow-hover;
-    border-color: rgba(139, 92, 246, 0.3);
+    border-color: rgba(161, 205, 244, 0.3);
   }
 
   &.is-skeleton {

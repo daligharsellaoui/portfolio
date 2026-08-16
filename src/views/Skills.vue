@@ -1,309 +1,289 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Code, Palette, Server, Wrench } from 'lucide-vue-next'
-import { techIcons } from '@/data/constants'
-import { usePortfolioData } from '@/composables/usePortfolioData'
-import MgSection from '@/components/common/MgSection.vue'
-import MgButton from '@/components/common/MgButton.vue'
-import MgBadge from '@/components/common/MgBadge.vue'
-import MgCard from '@/components/common/MgCard.vue'
-import MgIcon from '@/components/common/MgIcon.vue'
+import { skills } from '@/data/constants'
 
-const { t } = useI18n()
-const { data: portfolioData } = usePortfolioData()
+const { t, tm } = useI18n()
 
-const activeCategory = ref('frontendEngineering')
-const animatedSkills = ref({})
-const isLoading = ref(false)
-
-const categories = computed(() => [
-  { id: 'frontendEngineering', label: t('skills.categories.frontendEngineering'), icon: Code },
-  { id: 'uiUxDesign', label: t('skills.categories.uiUxDesign'), icon: Palette },
-  { id: 'backendEngineering', label: t('skills.categories.backendEngineering'), icon: Server },
-  { id: 'toolsTesting', label: t('skills.categories.toolsTesting'), icon: Wrench }
-])
-
-const categoryData = computed(() => {
-  return portfolioData.value?.skills?.[activeCategory.value] || []
+const areas = computed(() => {
+  const keys = ['productEngineering', 'frontendArchitecture', 'backendPlatform', 'productExperience']
+  return keys.map((key) => ({ ...tm(`expertise.areas.${key}`), key }))
 })
 
-onMounted(() => {
-  categoryData.value.forEach(skill => {
-    animatedSkills.value[skill.name] = true
-  })
-})
-
-const setCategory = (categoryId) => {
-  activeCategory.value = categoryId
-  isLoading.value = true
-  animatedSkills.value = {}
-  
-  setTimeout(() => {
-    categoryData.value.forEach(skill => {
-      animatedSkills.value[skill.name] = true
+const techList = computed(() => {
+  const seen = new Set()
+  const list = []
+  Object.values(skills).forEach((category) => {
+    category.forEach((skill) => {
+      if (!seen.has(skill.name)) {
+        seen.add(skill.name)
+        list.push(skill.name)
+      }
     })
-    isLoading.value = false
-  }, 300)
-}
+  })
+  return list
+})
+
+const proof = computed(() => [
+  { value: t('expertise.proof.years.value'), label: t('expertise.proof.years.label') },
+  { value: t('expertise.proof.products.value'), label: t('expertise.proof.products.label') },
+  { value: t('expertise.proof.domains.value'), label: t('expertise.proof.domains.label') }
+])
 </script>
 
 <template>
-  <MgSection id="skills">
-    <template #header>
-      <span class="section-label">{{ t('skills.label') }}</span>
-      <h2 class="section-title">
-        {{ t('skills.title') }}
-      </h2>
-    </template>
-
-    <div class="skills-categories">
-      <MgButton
-        v-for="category in categories"
-        :key="category.id"
-        variant="ghost"
-        size="small"
-        class="category-btn"
-        :active="activeCategory === category.id"
-        @click="setCategory(category.id)"
+  <section
+    id="expertise"
+    class="expertise"
+  >
+    <div class="container">
+      <header
+        v-reveal
+        class="expertise-header"
       >
-        <component
-          :is="category.icon"
-          size="18"
-        />
-        <span>{{ category.label }}</span>
-      </MgButton>
-    </div>
-
-    <div class="skills-grid">
-      <MgCard
-        v-for="(skill, index) in categoryData"
-        :key="isLoading ? `skeleton-${index}` : skill.name"
-        class="skill-card"
-        :class="{ animated: !isLoading && animatedSkills[skill.name] }"
-        :style="{ '--delay': `${index * 50}ms` }"
-        :skeleton="isLoading"
-      >
-        <div
-          v-if="!isLoading"
-          class="skill-header"
-        >
-          <MgIcon
-            :icon="techIcons[skill.icon]"
-            size="medium"
-          />
-          <div class="skill-info">
-            <h4 class="skill-name">
-              {{ skill.name }}
-            </h4>
-            <MgBadge
-              v-if="skill.advanced"
-              variant="accent"
-              size="small"
-            >
-              {{ t('skills.advanced') }}
-            </MgBadge>
-          </div>
+        <div class="header-left">
+          <span class="section-label">{{ t('expertise.label') }}</span>
+          <h2 class="section-title">
+            {{ t('expertise.title') }}
+          </h2>
         </div>
-        <div
-          v-if="!isLoading"
-          class="skill-glow"
-        />
-      </MgCard>
-    </div>
+        <p class="header-description">
+          {{ t('expertise.description') }}
+        </p>
+      </header>
 
-    <div class="skills-stats">
-      <div class="stat-item">
-        <span class="stat-number gradient-text">5+</span>
-        <span class="stat-label">{{ t('skills.years') }}</span>
+      <div class="capability-grid">
+        <div
+          v-for="(area, index) in areas"
+          :key="area.key"
+          v-reveal="{ delay: index * 80 }"
+          class="capability"
+        >
+          <span class="capability-index">0{{ index + 1 }}</span>
+          <h3 class="capability-title">
+            {{ area.title }}
+          </h3>
+          <ul class="capability-list">
+            <li
+              v-for="item in area.items"
+              :key="item"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="stat-item">
-        <span class="stat-number gradient-text">28+</span>
-        <span class="stat-label">{{ t('skills.delivered') }}</span>
+
+      <div
+        v-reveal
+        class="tech-strip"
+      >
+        <span class="tech-label">{{ t('expertise.techLabel') }}</span>
+        <div class="tech-chips">
+          <span
+            v-for="tech in techList"
+            :key="tech"
+          >{{ tech }}</span>
+        </div>
       </div>
-      <div class="stat-item">
-        <span class="stat-number gradient-text">15+</span>
-        <span class="stat-label">{{ t('skills.technologies') }}</span>
+
+      <div
+        v-reveal
+        class="proof-row"
+      >
+        <div
+          v-for="item in proof"
+          :key="item.label"
+          class="proof"
+        >
+          <strong>{{ item.value }}</strong>
+          <span>{{ item.label }}</span>
+        </div>
       </div>
     </div>
-  </MgSection>
+  </section>
 </template>
 
 <style lang="scss" scoped>
-.skills {
-  position: relative;
+.expertise {
+  padding: $section-padding 0;
 
-  &-categories {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 48px;
-    flex-wrap: wrap;
+  @include respond-to(mobile) {
+    padding: $section-padding-mobile 0;
+  }
+}
 
-    @include respond-to(mobile) {
-      gap: 8px;
-    }
+.expertise-header {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 64px;
+
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
-  &-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+  .section-title {
+    font-size: clamp(32px, 4.6vw, 56px);
+    margin-bottom: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .header-description {
+    font-size: 17px;
+    color: $text-secondary;
+    line-height: 1.65;
+    max-width: 440px;
+    justify-self: end;
 
     @include respond-to(tablet) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include respond-to(mobile) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  &-stats {
-    display: flex;
-    justify-content: center;
-    gap: 64px;
-    margin-top: 64px;
-    padding: 32px;
-    @include glassmorphism;
-    border-radius: $radius-card;
-
-    @include respond-to(mobile) {
-      flex-direction: column;
-      gap: 32px;
-      align-items: center;
+      justify-self: start;
     }
   }
 }
 
-.category-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  @include glassmorphism;
-  border-radius: $radius-button;
-  color: $text-secondary;
-  font-weight: 500;
-  transition: all 0.3s ease;
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: $border-color;
+  border: 1px solid $border-color;
+  border-radius: 16px;
+  overflow: hidden;
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   @include respond-to(mobile) {
-    padding: 10px 16px;
-    font-size: 13px;
+    grid-template-columns: 1fr;
+  }
+}
+
+.capability {
+  background: $bg-primary;
+  padding: 32px 28px;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: $surface-raised;
+  }
+
+  .capability-index {
+    font-family: $font-mono;
+    font-size: 11px;
+    color: $text-muted;
+    letter-spacing: 0.08em;
+  }
+
+  .capability-title {
+    font-size: 19px;
+    font-weight: 600;
+    margin: 14px 0 20px;
+  }
+
+  .capability-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 14px;
+      color: $text-secondary;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.6em;
+        width: 5px;
+        height: 5px;
+        border-radius: 2px;
+        background: $accent-primary;
+        opacity: 0.55;
+      }
+    }
+  }
+}
+
+.tech-strip {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid $border-color;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .tech-label {
+    font-family: $font-mono;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $text-muted;
+    padding-top: 6px;
+  }
+
+  .tech-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 
     span {
-      display: none;
+      font-family: $font-mono;
+      font-size: 12px;
+      color: $text-secondary;
+      border: 1px solid $border-color;
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.015);
     }
-  }
-
-  &:hover {
-    color: $text-primary;
-    border-color: rgba(99, 102, 241, 0.3);
-  }
-
-  &.active {
-    background: rgba(99, 102, 241, 0.15);
-    color: $text-primary;
-    border-color: $accent-primary;
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
   }
 }
 
-:deep(.skill-card) {
-  @include glassmorphism;
-  border-radius: $radius-card;
-  padding: 24px;
-  position: relative;
+.proof-row {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: $border-color;
+  border: 1px solid $border-color;
+  border-radius: 16px;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.4s ease;
-
-  &.animated {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  &:hover {
-    transform: translateY(-4px);
-    border-color: rgba(99, 102, 241, 0.3);
-
-    .skill-glow {
-      opacity: 1;
-    }
-
-    .skill-progress {
-      box-shadow: 0 0 10px $accent-primary;
-    }
-  }
-
-  .skill-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-}
-
-.skill-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.skill-info {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.skill-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: $text-primary;
-}
-
-.skill-badge {
-  font-size: 11px;
-  font-weight: 600;
-  color: $accent-primary;
-  background: rgba(99, 102, 241, 0.15);
-  padding: 4px 8px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  font-family: $font-heading;
-  font-size: 48px;
-  font-weight: 700;
-  display: block;
 
   @include respond-to(mobile) {
-    font-size: 36px;
+    grid-template-columns: 1fr;
   }
-}
 
-.stat-label {
-  font-size: 14px;
-  color: $text-secondary;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
+  .proof {
+    background: $bg-primary;
+    padding: 28px;
+    text-align: center;
 
-.skills-grid {
+    strong {
+      display: block;
+      font-family: $font-heading;
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: $text-primary;
+      margin-bottom: 6px;
+    }
+
+    span {
+      font-size: 13px;
+      color: $text-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+  }
 }
 </style>

@@ -94,7 +94,7 @@ onUnmounted(() => {
 
   &:hover {
     color: $text-primary;
-    border-color: rgba(99, 102, 241, 0.3);
+    border-color: rgba(161, 205, 244, 0.3);
   }
 }
 
@@ -128,7 +128,7 @@ onUnmounted(() => {
 
   &.active {
     color: $accent-primary;
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(161, 205, 244, 0.1);
   }
 }
 

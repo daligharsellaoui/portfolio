@@ -17,7 +17,7 @@ const scrollToTop = () => {
       <div class="footer-content">
         <div class="footer-brand">
           <div class="brand-logo">
-            <span class="logo-text">MGFlex</span>
+            <span class="logo-text">Dali</span>
             <span class="logo-dot" />
           </div>
           <p class="brand-tagline">
@@ -29,9 +29,9 @@ const scrollToTop = () => {
           <div class="link-group">
             <h4>{{ t('footer.navigation') }}</h4>
             <ul>
-              <li><a href="#about">{{ t('nav.about') }}</a></li>
-              <li><a href="#skills">{{ t('nav.skills') }}</a></li>
-              <li><a href="#projects">{{ t('nav.projects') }}</a></li>
+              <li><a href="#home">{{ t('nav.home') }}</a></li>
+              <li><a href="#work">{{ t('nav.work') }}</a></li>
+              <li><a href="#expertise">{{ t('nav.expertise') }}</a></li>
               <li><a href="#experience">{{ t('nav.experience') }}</a></li>
             </ul>
           </div>
@@ -67,7 +67,7 @@ const scrollToTop = () => {
 
       <div class="footer-bottom">
         <p class="copyright">
-          <span>&copy; {{ new Date().getFullYear() }} {{ t('data.name') }}.</span>
+          <span>&copy; {{ new Date().getFullYear() }} {{ portfolioData?.name || '' }}.</span>
           <span class="separator">|</span>
           <span>{{ t('footer.copyright') }}</span>
         </p>

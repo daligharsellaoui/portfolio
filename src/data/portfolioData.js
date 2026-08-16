@@ -3,93 +3,131 @@ import { name, email, skills, social, techIcons } from './constants'
 export const portfolioData = {
   name,
   title: "Senior Frontend Engineer",
-  tagline: "Building scalable applications with Vue, Angular...",
-  about: `I'm a passionate frontend engineer with 5+ years of experience building high-performance web applications.Experienced in Vue.js and Angular, with deep expertise in design systems and data visualization.
-Currently leading frontend architecture at a Series B startup, I've shipped products used by millions and contributed to open-source projects including VueUse and Angular Material.
-My focus is on creating elegant, accessible, and performant user experiences while mentoring teams on modern frontend best practices.`,
-  skills,
-projects: [
-  {
-    id: 1,
-    title: "Reachbl Platform",
-    description: "Designed and developed a modern meetings and webinars platform with a focus on video calling experiences, and real-time messaging interfaces. Worked on responsive UI components, chat systems, and scalable frontend architecture to deliver a smooth and user-friendly collaboration experience.",
-    tech: ["Vue 3", "JavaScript", "SCSS", "100ms"],
-    image: "reachabl",
-    liveUrl: "https://reachabl.com/",
-    githubUrl: "#",
-    featured: true
-  },
-  {
-    id: 2,
-    title: "Component Library & Design System",
-    description: "Built a reusable UI component system with consistent design patterns, scalable structure, and focus on maintainability. Includes buttons, forms, cards, tables, and layout primitives.",
-    tech: ["Vue 3", "Storybook", "Design Systems"],
-    image: "design-system",
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true
-  },
-  {
-    id: 3,
-    title: "Vue 3 SaaS Dashboard",
-    description: "Designed and developed a modern SaaS-style dashboard with reusable components, responsive layout, and clean UI structure. Focused on scalable frontend architecture and user-friendly data visualization.",
-    tech: ["Vue 3", "Javascript", "Chart.js", "scss"],
-    image: "dashboard",
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true
-  },
-{
-  id: 4,
-  title: "7Digi Content Lab Portfolio Website",
-  description: "Designed and developed a modern responsive portfolio website for 7Digi Content Lab, a digital content and creative strategy brand. Focused on modern UI/UX, smooth animations, responsive layouts, and strong visual presentation to showcase services including digital strategy, design, video production, and social media content.",
-  tech: ["Vue", "JavaScript", "SCSS", "Responsive Design"],
-  image: "7digi",
-  liveUrl: "#",
-  githubUrl: "#",
-  featured: false
-},
-{
-  id: 5,
-  title: "Kanban Task Management Board",
-  description: "Built an interactive Kanban-style task management application with drag-and-drop functionality and dynamic task organization. Focused on smooth user interaction, reusable components, and modern productivity-focused UI design.",
-  tech: ["Angular", "TypeScript"],
-  image: "kanban",
-  liveUrl: "#",
-  githubUrl: "#",
-  featured: false
-}
-],
+  tagline: "I build software that makes complex work feel simple.",
+  about: `I'm a product engineer from Tunis who has spent the last five years building software for people whose work is genuinely complicated — doctors, restaurant teams, event organizers, enterprise operators. My job is to take complex, multi-step workflows and turn them into interfaces that feel obvious. I work across the whole product surface: architecture, component systems, state, and the small details that make software pleasant to use.`,
+  location: "Tunis, Tunisia",
+  products: [
+    {
+      id: "doctor-me",
+      name: "doctor.me",
+      category: "Medical practice management platform",
+      description: "A multi-module healthcare platform that gives practitioners and staff one daily workspace — appointments, consultations, prescriptions, certificates, teleconsultation and finance. The kind of product where every screen hides a complex clinical workflow behind a calm interface.",
+      contribution: "Designed and developed the frontend experience across the platform's modules, turning dense clinical workflows into a focused daily workspace that practitioners and staff can move through quickly.",
+      capabilities: [
+        "Patient management",
+        "Appointments & calendar workflows",
+        "Consultations",
+        "Prescriptions",
+        "Certificates & letters",
+        "Teleconsultation",
+        "Financial workflows",
+        "Role-based access",
+        "AI-assisted functionality",
+        "Multi-module architecture"
+      ],
+      accent: "#2dd4bf",
+      links: {}
+    },
+    {
+      id: "mepos",
+      name: "mePOS",
+      category: "Restaurant operations platform",
+      description: "An operations platform for restaurants that connects the point of sale, stock, kitchen, CRM and analytics — so a full-service restaurant can run its day from one system instead of five disconnected ones.",
+      contribution: "Built the frontend for the core operational flows — POS, stock, kitchen and CRM — unifying them into one consistent interface that staff can move through fast, even during peak hours.",
+      capabilities: [
+        "POS / Caisse",
+        "Stock management",
+        "CRM",
+        "Kitchen workflows",
+        "Analytics",
+        "Operational workflows"
+      ],
+      accent: "#f59e0b",
+      links: {}
+    }
+  ],
+  projects: [
+    {
+      id: 1,
+      title: "Reachbl Platform",
+      description: "A meetings and webinars platform with real-time video calling and messaging. Built the responsive UI and chat systems that keep large live sessions fast and easy to follow.",
+      tech: ["Vue 3", "JavaScript", "SCSS", "100ms"],
+      image: "reachabl",
+      liveUrl: "https://reachabl.com/",
+      githubUrl: "#",
+      featured: true
+    },
+    {
+      id: 2,
+      title: "Component Library & Design System",
+      description: "A reusable UI system — buttons, forms, cards, tables and layout primitives — built so several products stay consistent without slowing teams down.",
+      tech: ["Vue 3", "Storybook", "Design Systems"],
+      image: "design-system",
+      liveUrl: "#",
+      githubUrl: "#",
+      featured: false
+    },
+    {
+      id: 3,
+      title: "Vue 3 SaaS Dashboard",
+      description: "A data-heavy SaaS dashboard built from reusable components — charts, tables and responsive layouts that stay legible at any screen size.",
+      tech: ["Vue 3", "Chart.js", "SCSS"],
+      image: "dashboard",
+      liveUrl: "#",
+      githubUrl: "#",
+      featured: false
+    },
+    {
+      id: 4,
+      title: "Kanban Task Management Board",
+      description: "A drag-and-drop Kanban board focused on smooth interaction and clear visual state — the kind of interface where organization is the whole point.",
+      tech: ["Angular", "TypeScript"],
+      image: "kanban",
+      liveUrl: "#",
+      githubUrl: "#",
+      featured: false
+    },
+    {
+      id: 5,
+      title: "7Digi Content Lab Portfolio",
+      description: "A responsive portfolio site for a digital content studio, with smooth animations and a strong visual presentation.",
+      tech: ["Vue", "JavaScript", "SCSS"],
+      image: "7digi",
+      liveUrl: "#",
+      githubUrl: "#",
+      featured: false
+    }
+  ],
   experience: [
     {
       id: 1,
       company: "iObeya",
       logo: "iO",
-      role: "Frontend developper",
-      duration: "September 2022 - Present",
+      role: "Frontend Developer",
+      duration: "September 2022 — Present",
       location: "Tunis, Tunisia",
-      description: "Developed and maintained complex front-end features using modern JavaScript frameworks aligned with iObeya’s design system.",
-      highlights: ["Micro-frontend", "Vue", "Design System", "Springboot"]
+      description: "Build and maintain complex front-end features inside a micro-frontend architecture, contributing to iObeya's design system so cross-team work stays consistent at scale.",
+      highlights: ["Micro-frontend architecture", "Vue", "Design system", "Spring Boot"]
     },
     {
       id: 2,
       company: "Welyne",
       logo: "We",
-      role: "Full stack developer",
-      duration: "March 2022 - September 2022",
+      role: "Full Stack Developer",
+      duration: "March 2022 — September 2022",
       location: "Tunis, Tunisia",
-      description: "Developed optimization and maintenance tasks for various apps : BlancLiving App, Shopvel, IMSG-ERP",
-      highlights: ["Angular", "Laravel", "Nodejs", "Flutter"]
+      description: "Full-stack development, optimization and maintenance across BlancLiving App, Shopvel and IMSG-ERP — shipping improvements across Angular, Laravel and Node.js codebases.",
+      highlights: ["Angular", "Laravel", "Node.js", "Flutter"]
     },
     {
       id: 3,
-      company: "ASM - ALL SOFT MULTIMEDIA",
+      company: "ASM — All Soft Multimedia",
       logo: "ASM",
-      role: "Full stack developer",
-      duration: "June 2021 – March 2022",
+      role: "Full Stack Developer",
+      duration: "June 2021 — March 2022",
       location: "Sfax, Tunisia",
-      description: "Developed, optimized, and maintained an ERP solution: DUX-ERP using Angular and Laravel frameworks.",
-      highlights: ["Angular", "Laravel", "Springboot"]
+      description: "Developed, optimized and maintained DUX-ERP, a full ERP solution, working across its Angular frontend and Laravel backend.",
+      highlights: ["Angular", "Laravel", "ERP"]
     }
   ],
   contact: {
@@ -99,12 +137,12 @@ projects: [
     social
   },
   navItems: [
-    { id: "about", label: "About", icon: "user" },
-    { id: "skills", label: "Skills", icon: "code" },
-    { id: "projects", label: "Projects", icon: "folder" },
+    { id: "home", label: "Home", icon: "home" },
+    { id: "work", label: "Work", icon: "folder" },
+    { id: "expertise", label: "Expertise", icon: "code" },
     { id: "experience", label: "Experience", icon: "briefcase" },
     { id: "contact", label: "Contact", icon: "mail" }
   ]
 }
 
-export { techIcons }
+export { techIcons, skills }

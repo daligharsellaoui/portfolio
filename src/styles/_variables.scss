@@ -8,8 +8,8 @@ $colors-dark: (
   bg-tertiary: #1a1a25,
   glass-bg: rgba(18, 18, 26, 0.7),
   glass-border: rgba(255, 255, 255, 0.08),
-  accent-primary: #6366f1,
-  accent-secondary: #8b5cf6,
+  accent-primary: #a1cdf4,
+  accent-secondary: #3b82f6,
   accent-tertiary: #06b6d4,
   text-primary: #f8fafc,
   text-secondary: #94a3b8,
@@ -24,8 +24,8 @@ $colors-light: (
   bg-tertiary: #f1f5f9,
   glass-bg: rgba(255, 255, 255, 0.7),
   glass-border: rgba(0, 0, 0, 0.08),
-  accent-primary: #6366f1,
-  accent-secondary: #8b5cf6,
+  accent-primary: #a1cdf4,
+  accent-secondary: #3b82f6,
   accent-tertiary: #0891b2,
   text-primary: #0f172a,
   text-secondary: #475569,
@@ -50,9 +50,11 @@ $colors-light: (
   --text-muted: #{map-get($colors-dark, text-muted)};
   --success: #{map-get($colors-dark, success)};
   --border-color: #{map-get($colors-dark, border-color)};
+  --surface-alt: #0d0d15;
+  --surface-raised: #13131d;
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --shadow-neon: 0 0 40px rgba(99, 102, 241, 0.3);
-  --shadow-hover: 0 0 60px rgba(139, 92, 246, 0.2);
+  --shadow-neon: 0 0 24px rgba(161, 205, 244, 0.18);
+  --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.5);
 }
 
 :root[data-theme="light"] {
@@ -69,15 +71,19 @@ $colors-light: (
   --text-muted: #{map-get($colors-light, text-muted)};
   --success: #{map-get($colors-light, success)};
   --border-color: #{map-get($colors-light, border-color)};
+  --surface-alt: #eef1f6;
+  --surface-raised: #ffffff;
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --shadow-neon: 0 0 30px rgba(99, 102, 241, 0.15);
-  --shadow-hover: 0 0 40px rgba(139, 92, 246, 0.15);
+  --shadow-neon: 0 0 24px rgba(161, 205, 244, 0.15);
+  --shadow-hover: 0 12px 40px rgba(15, 23, 42, 0.12);
 }
 
 // SCSS Variables (fallback / internal use)
 $bg-primary: var(--bg-primary);
 $bg-secondary: var(--bg-secondary);
 $bg-tertiary: var(--bg-tertiary);
+$surface-alt: var(--surface-alt);
+$surface-raised: var(--surface-raised);
 $glass-bg: var(--glass-bg);
 $glass-border: var(--glass-border);
 $accent-primary: var(--accent-primary);
@@ -99,6 +105,7 @@ $gradient-glow: linear-gradient(135deg, $accent-primary 0%, $accent-tertiary 100
 $font-heading: 'Sora', sans-serif;
 $font-body: 'DM Sans', sans-serif;
 $font-mono: 'JetBrains Mono', monospace;
+$font-serif: 'Fraunces', serif;
 
 $h1-size: 56px;
 $h1-weight: 700;
@@ -140,6 +147,14 @@ $tablet: 1024px;
 @mixin glassmorphism {
   background: $glass-bg;
   backdrop-filter: blur(20px);
+}
+
+@mixin hairline {
+  border-top: 1px solid $border-color;
+}
+
+@mixin section-surface($color) {
+  background: $color;
 }
 
 @mixin gradient-text {
@@ -198,10 +213,10 @@ $tablet: 1024px;
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 20px rgba(161, 205, 244, 0.3);
   }
   50% {
-    box-shadow: 0 0 40px rgba(99, 102, 241, 0.5);
+    box-shadow: 0 0 40px rgba(161, 205, 244, 0.5);
   }
 }
 

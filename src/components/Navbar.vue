@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTheme } from '@/composables/useTheme'
-import { User, Code, Folder, Briefcase, Mail, Menu, X, Globe, Sun, Moon } from 'lucide-vue-next'
+import { Home, Package, Layers, Briefcase, Mail, Menu, X, Globe, Sun, Moon } from 'lucide-vue-next'
 import MgButton from './common/MgButton.vue'
 import MgDropdown from './common/MgDropdown.vue'
 
@@ -12,7 +12,7 @@ const { isDark, toggleTheme } = useTheme()
 defineProps({
   activeSection: {
     type: String,
-    default: 'about'
+    default: 'home'
   }
 })
 
@@ -22,9 +22,9 @@ const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
 
 const navItems = computed(() => [
-  { id: 'about', label: t('nav.about'), icon: User },
-  { id: 'skills', label: t('nav.skills'), icon: Code },
-  { id: 'projects', label: t('nav.projects'), icon: Folder },
+  { id: 'home', label: t('nav.home'), icon: Home },
+  { id: 'work', label: t('nav.work'), icon: Package },
+  { id: 'expertise', label: t('nav.expertise'), icon: Layers },
   { id: 'experience', label: t('nav.experience'), icon: Briefcase },
   { id: 'contact', label: t('nav.contact'), icon: Mail }
 ])
@@ -64,9 +64,9 @@ if (typeof window !== 'undefined') {
     <div class="navbar-container">
       <div
         class="navbar-logo"
-        @click="navigateTo('about')"
+        @click="navigateTo('home')"
       >
-        <span class="logo-text">MGFlex</span>
+        <span class="logo-text">Dali</span>
         <span class="logo-dot" />
       </div>
 
@@ -115,6 +115,7 @@ if (typeof window !== 'undefined') {
 
         <MgButton
           variant="primary"
+          class="navbar-cta"
           @click="navigateTo('contact')"
         >
           {{ t('nav.letsTalk') }}
@@ -305,7 +306,7 @@ if (typeof window !== 'undefined') {
 
   &.active {
     color: $text-primary;
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(161, 205, 244, 0.1);
 
     &::after {
       width: 20px;

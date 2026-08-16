@@ -36,14 +36,14 @@ defineProps({
   transition: all 0.3s ease;
 
   &.badge-default {
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: rgba(161, 205, 244, 0.1);
+    border: 1px solid rgba(161, 205, 244, 0.2);
     color: $text-secondary;
   }
 
   &.badge-accent {
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: rgba(161, 205, 244, 0.15);
+    border: 1px solid rgba(161, 205, 244, 0.2);
     color: $accent-primary;
     font-weight: 600;
     text-transform: uppercase;

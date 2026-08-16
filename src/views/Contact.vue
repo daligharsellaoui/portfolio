@@ -1,14 +1,11 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Send, Github, Linkedin, CheckCircle } from 'lucide-vue-next'
+import { Send, Github, Linkedin, CheckCircle, ArrowRight, Mail, MapPin } from 'lucide-vue-next'
 import { usePortfolioData } from '@/composables/usePortfolioData'
-import MgSection from '@/components/common/MgSection.vue'
 import MgForm from '@/components/common/MgForm.vue'
 import MgInput from '@/components/common/MgInput.vue'
 import MgButton from '@/components/common/MgButton.vue'
-import MgBadge from '@/components/common/MgBadge.vue'
-import MgIcon from '@/components/common/MgIcon.vue'
 
 const { t } = useI18n()
 const { data: portfolioData } = usePortfolioData()
@@ -79,7 +76,7 @@ const handleSubmit = async () => {
     form.name = ''
     form.email = ''
     form.message = ''
-  }, 3000)
+  }, 4000)
 }
 
 const socialLinks = computed(() => {
@@ -102,236 +99,222 @@ const formLabels = computed(() => ({
 </script>
 
 <template>
-  <MgSection id="contact">
-    <template #header>
-      <span class="section-label">{{ t('contact.label') }}</span>
-      <h2 class="section-title">
-        {{ t('contact.title') }}
-      </h2>
-      <p class="section-description">
-        {{ t('contact.description') }}
-      </p>
-    </template>
-
-    <div class="contact-grid">
-      <MgForm :on-submit="handleSubmit">
-        <MgInput
-          v-model="form.name"
-          type="text"
-          :label="formLabels.name"
-          :placeholder="formLabels.namePlaceholder"
-          :error="errors.name"
-        />
-
-        <MgInput
-          v-model="form.email"
-          type="email"
-          :label="formLabels.email"
-          :placeholder="formLabels.emailPlaceholder"
-          :error="errors.email"
-        />
-
-        <MgInput
-          v-model="form.message"
-          type="textarea"
-          :label="formLabels.message"
-          :placeholder="formLabels.messagePlaceholder"
-          :error="errors.message"
-        />
-
-        <MgButton
-          type="submit"
-          variant="primary"
-          :disabled="isSubmitting"
-          class="submit-btn"
-        >
-          <span
-            v-if="isSubmitting"
-            class="loading-spinner"
-          />
-          <template v-else>
-            <Send size="18" />
-            <span>{{ t('contact.form.send') }}</span>
-          </template>
-        </MgButton>
-
-        <Transition name="success">
-          <div
-            v-if="isSubmitted"
-            class="success-message"
+  <section
+    id="contact"
+    class="contact"
+  >
+    <div class="container">
+      <div
+        v-reveal
+        class="contact-hero"
+      >
+        <span class="section-label">{{ t('contact.label') }}</span>
+        <h2 class="contact-title">
+          {{ t('contact.title') }}
+          <em class="accent-serif contact-accent">{{ t('contact.titleAccent') }}</em>
+        </h2>
+        <p class="contact-description">
+          {{ t('contact.description') }}
+        </p>
+        <div class="contact-cta">
+          <MgButton
+            variant="primary"
+            size="large"
+            :href="`mailto:${portfolioData?.contact?.email || ''}`"
           >
-            <CheckCircle size="20" />
-            <span>{{ t('contact.success') }}</span>
-          </div>
-        </Transition>
-      </MgForm>
-
-      <div class="contact-info">
-        <MgCard
-          class="info-card"
-          :hoverable="false"
-        >
-          <div class="info-header">
-            <MgIcon
-              :icon="'<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\'></path><polyline points=\'22,6 12,13 2,6\'></polyline></svg>'"
-              size="medium"
-            />
-            <div class="info-content">
-              <h4>{{ t('contact.info.email') }}</h4>
-              <a :href="`mailto:${portfolioData?.contact?.email || ''}`">{{ portfolioData?.contact?.email || '' }}</a>
-            </div>
-          </div>
-        </MgCard>
-
-        <MgCard
-          class="info-card"
-          :hoverable="false"
-        >
-          <div class="info-header">
-            <MgIcon
-              :icon="'<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\'></path><circle cx=\'12\' cy=\'10\' r=\'3\'></circle></svg>'"
-              size="medium"
-            />
-            <div class="info-content">
-              <h4>{{ t('contact.info.location') }}</h4>
-              <span>{{ portfolioData?.contact?.location || '' }}</span>
-            </div>
-          </div>
-        </MgCard>
-
-        <div class="availability-status">
-          <MgBadge
-            variant="success"
-            size="small"
-          />
-          <div class="status-content">
-            <h4>{{ t('contact.availability.title') }}</h4>
-            <p>{{ t('contact.availability.description') }}</p>
-          </div>
-        </div>
-
-        <div class="social-links">
-          <h4>{{ t('contact.social') }}</h4>
-          <div class="social-icons">
-            <MgButton
-              v-for="social in socialLinks"
-              :key="social.id"
-              variant="glass"
-              size="icon"
-              :href="social.url"
-              target="_blank"
-              :aria-label="social.label"
-            >
-              <svg
-                v-if="social.icon === 'upwork'"
-                viewBox="0 0 24 24"
-                width="20"
-                height="20"
-              >
-                <path
-                  fill="currentColor"
-                  d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.548-1.405-.002-2.543-1.143-2.545-2.548V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"
-                />
-              </svg>
-              <component
-                :is="social.icon"
-                v-else
-                size="20"
-              />
-            </MgButton>
-          </div>
+            {{ t('contact.letsTalk') }}
+            <ArrowRight size="18" />
+          </MgButton>
         </div>
       </div>
+
+      <div
+        v-reveal
+        class="contact-panel"
+      >
+        <MgForm
+          class="contact-form"
+          :on-submit="handleSubmit"
+        >
+          <h3 class="form-title">
+            {{ t('contact.form.title') }}
+          </h3>
+
+          <MgInput
+            v-model="form.name"
+            type="text"
+            :label="formLabels.name"
+            :placeholder="formLabels.namePlaceholder"
+            :error="errors.name"
+          />
+
+          <MgInput
+            v-model="form.email"
+            type="email"
+            :label="formLabels.email"
+            :placeholder="formLabels.emailPlaceholder"
+            :error="errors.email"
+          />
+
+          <MgInput
+            v-model="form.message"
+            type="textarea"
+            :label="formLabels.message"
+            :placeholder="formLabels.messagePlaceholder"
+            :error="errors.message"
+          />
+
+          <MgButton
+            type="submit"
+            variant="primary"
+            :disabled="isSubmitting"
+            class="submit-btn"
+          >
+            <span
+              v-if="isSubmitting"
+              class="loading-spinner"
+            />
+            <template v-else>
+              <Send size="18" />
+              <span>{{ t('contact.form.send') }}</span>
+            </template>
+          </MgButton>
+
+          <Transition name="success">
+            <div
+              v-if="isSubmitted"
+              class="success-message"
+            >
+              <CheckCircle size="20" />
+              <span>{{ t('contact.success') }}</span>
+            </div>
+          </Transition>
+        </MgForm>
+
+        <aside class="contact-side">
+          <a
+            class="side-row"
+            :href="`mailto:${portfolioData?.contact?.email || ''}`"
+          >
+            <Mail size="18" />
+            <span>
+              <small>{{ t('contact.info.email') }}</small>
+              <strong>{{ portfolioData?.contact?.email || '' }}</strong>
+            </span>
+          </a>
+
+          <div class="side-row">
+            <MapPin size="18" />
+            <span>
+              <small>{{ t('contact.info.location') }}</small>
+              <strong>{{ portfolioData?.contact?.location || '' }}</strong>
+            </span>
+          </div>
+
+          <div class="side-row side-availability">
+            <span class="availability-dot" />
+            <span>
+              <small>{{ t('contact.availability.title') }}</small>
+              <strong>{{ t('contact.availability.description') }}</strong>
+            </span>
+          </div>
+
+          <div class="side-social">
+            <span class="social-label">{{ t('contact.social') }}</span>
+            <div class="social-icons">
+              <MgButton
+                v-for="social in socialLinks"
+                :key="social.id"
+                variant="glass"
+                size="icon"
+                :href="social.url"
+                target="_blank"
+                :aria-label="social.label"
+              >
+                <svg
+                  v-if="social.icon === 'upwork'"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.548-1.405-.002-2.543-1.143-2.545-2.548V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"
+                  />
+                </svg>
+                <component
+                  :is="social.icon"
+                  v-else
+                  size="18"
+                />
+              </MgButton>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
-  </MgSection>
+  </section>
 </template>
 
 <style lang="scss" scoped>
 .contact {
-  &-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 48px;
+  padding: $section-padding 0;
+  position: relative;
 
-    @include respond-to(tablet) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  &-form {
-    @include glassmorphism;
-    border-radius: $radius-card;
-    padding: 40px;
-
-    @include respond-to(mobile) {
-      padding: 24px;
-    }
-  }
-
-  &-info {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  @include respond-to(mobile) {
+    padding: $section-padding-mobile 0;
   }
 }
 
-.form-group {
-  margin-bottom: 24px;
+.contact-hero {
+  max-width: 860px;
+  margin-bottom: 72px;
 
-  label {
+  .section-title {
+    font-size: clamp(36px, 5.4vw, 64px);
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .contact-accent {
     display: block;
-    font-size: 14px;
-    font-weight: 500;
+    color: $accent-primary;
+  }
+
+  .contact-description {
+    font-size: 18px;
+    line-height: 1.7;
     color: $text-secondary;
-    margin-bottom: 8px;
-  }
-
-  input, textarea {
-    width: 100%;
-    padding: 16px 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid $border-color;
-    border-radius: $radius-input;
-    color: $text-primary;
-    font-size: 16px;
-    transition: all 0.3s ease;
-
-    &::placeholder {
-      color: $text-muted;
-    }
-
-    &:focus {
-      outline: none;
-      border-color: $accent-primary;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-    }
-
-    &.error {
-      border-color: #ef4444;
-
-      &:focus {
-        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-      }
-    }
-  }
-
-  textarea {
-    resize: vertical;
-    min-height: 140px;
+    max-width: 620px;
+    margin-bottom: 36px;
   }
 }
 
-.error-message {
-  display: block;
-  font-size: 12px;
-  color: #ef4444;
-  margin-top: 6px;
+.contact-panel {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: start;
+
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+  }
 }
 
-:deep(.submit-btn) {
+.contact-form {
+  .form-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 28px;
+  }
+
+  :deep(.mg-input) {
+    margin-bottom: 20px;
+  }
+}
+
+.submit-btn {
   width: 100%;
-  padding: 16px 32px;
-  font-size: 16px;
   position: relative;
 }
 
@@ -359,7 +342,7 @@ const formLabels = computed(() => ({
   padding: 16px;
   background: rgba(16, 185, 129, 0.1);
   border: 1px solid rgba(16, 185, 129, 0.2);
-  border-radius: $radius-input;
+  border-radius: 12px;
   color: $success;
   font-weight: 500;
 }
@@ -375,80 +358,79 @@ const formLabels = computed(() => ({
   transform: translateY(-10px);
 }
 
-.contact-info {
-  .info-card {
-    padding: 24px;
-    margin-bottom: 16px;
-  }
-
-  :deep(.base-card) {
-    padding: 24px;
-  }
-}
-
-:deep(.info-header) {
+.contact-side {
   display: flex;
+  flex-direction: column;
   gap: 16px;
-  align-items: flex-start;
+  padding-top: 8px;
 }
 
-.info-content {
-  h4 {
-    font-size: 14px;
-    color: $text-muted;
-    font-weight: 500;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+.side-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 1px solid $border-color;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.015);
+  transition: border-color 0.3s ease;
+  color: $text-secondary;
 
-  a, span {
-    font-size: 16px;
-    color: $text-primary;
-    font-weight: 500;
-  }
-
-  a:hover {
+  > svg {
+    flex-shrink: 0;
+    margin-top: 2px;
     color: $accent-primary;
   }
-}
 
-.availability-status {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 24px;
-  background: rgba(16, 185, 129, 0.05);
-  border: 1px solid rgba(16, 185, 129, 0.15);
-  border-radius: $radius-card;
-
-  .status-content {
-    h4 {
-      font-size: 16px;
-      color: $text-primary;
-      margin-bottom: 4px;
-    }
-
-    p {
-      font-size: 14px;
-      color: $text-secondary;
-    }
-  }
-}
-
-.social-links {
-  h4 {
-    font-size: 14px;
-    color: $text-muted;
-    font-weight: 500;
-    margin-bottom: 16px;
+  small {
+    display: block;
+    font-family: $font-mono;
+    font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.1em;
+    color: $text-muted;
+    margin-bottom: 4px;
+  }
+
+  strong {
+    font-size: 15px;
+    font-weight: 500;
+    color: $text-primary;
+  }
+
+  &:hover {
+    border-color: rgba(161, 205, 244, 0.35);
   }
 }
 
-.social-icons {
-  display: flex;
-  gap: 12px;
+.side-availability {
+  .availability-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $success;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+}
+
+.side-social {
+  padding: 20px 24px;
+
+  .social-label {
+    font-family: $font-mono;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $text-muted;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 12px;
+  }
 }
 </style>

@@ -136,7 +136,7 @@ input, textarea {
 
   &-primary {
     background: $gradient-primary;
-    color: $text-primary;
+    color: #0a1420;
     @include neon-glow;
 
     &:hover {
@@ -299,4 +299,41 @@ input, textarea {
   margin: 0 auto;
   color: $text-secondary;
   font-size: 18px;
+}
+
+// Scroll reveal (v-reveal directive)
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+
+  &.is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// Editorial serif accent
+.accent-serif {
+  font-family: $font-serif;
+  font-style: italic;
+  font-weight: 500;
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }

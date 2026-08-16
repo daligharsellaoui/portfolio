@@ -97,7 +97,7 @@ const inputId = computed(() => props.label ? props.label.toLowerCase().replace(/
     &:focus {
       outline: none;
       border-color: $accent-primary;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      box-shadow: 0 0 0 3px rgba(161, 205, 244, 0.1);
     }
   }
 

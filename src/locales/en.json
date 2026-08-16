@@ -1,165 +1,80 @@
 {
   "nav": {
-    "about": "About",
-    "skills": "Skills",
-    "projects": "Projects",
+    "home": "Home",
+    "work": "Work",
+    "expertise": "Expertise",
     "experience": "Experience",
     "contact": "Contact",
-    "letsTalk": "Let's Talk"
+    "letsTalk": "Let's talk"
   },
   "hero": {
-    "badge": "Available for new opportunities",
-    "title": "Hi, I'm {name}",
-    "subtitle": "{title}",
-    "description": "Building scalable interfaces with Vue, Angular & modern tooling",
-    "viewWork": "View My Work",
-    "getInTouch": "Get In Touch",
-    "scrollToExplore": "Scroll to explore"
+    "available": "Available for new work",
+    "titlePre": "I build software that makes",
+    "titleAccent": "complex work feel simple.",
+    "description": "Frontend engineer focused on turning complex workflows into fast, intuitive, production-ready digital products — currently building collaboration software at iObeya.",
+    "exploreWork": "Explore my work",
+    "letsTalk": "Let's talk",
+    "scrollHint": "Scroll"
   },
-  "skills": {
-    "label": "Technical Skills",
-    "title": "Skills & Technologies",
-    "description": "A comprehensive toolkit built over years of delivering enterprise-grade applications",
-    "categories": {
-      "frontendEngineering": "Frontend Engineering",
-      "uiUxDesign": "UI/UX & Design",
-      "backendEngineering": "Backend Engineering",
-      "dataVisualisation": "Data & Visualisation",
-      "toolsTesting": "Tools & Testing"
-    },
-    "years": "Years Experience",
-    "delivered": "Projects Delivered",
-    "technologies": "Technologies",
-    "advanced": "Advanced"
+  "work": {
+    "label": "Selected Products",
+    "title": "Real products, built for real workflows.",
+    "description": "The strongest examples of my work are production products that turned complex, multi-step operations into software people use every day.",
+    "role": "My role",
+    "capabilities": "What the product covers",
+    "moreLabel": "More work",
+    "moreTitle": "Selected work",
+    "moreDescription": "Other products and interfaces I've designed and built."
   },
-  "projects": {
-    "label": "Featured Work",
-    "title": "Projects I've Built",
-    "description": "A selection of projects showcasing expertise in Vue, Angular, and modern frontend architecture",
-    "filters": {
-      "all": "All Projects",
-      "vue": "Vue.js",
-      "angular": "Angular",
-      "react": "React",
-      "storybook": "Design Systems"
-    },
-    "featured": "Featured",
-    "liveDemo": "Live Demo",
-    "source": "Source",
-    "noResults": "No projects found for this filter.",
-    "list": [
-      {
-        "id": 1,
-        "title": "Enterprise SaaS Dashboard",
-        "description": "Built a comprehensive analytics dashboard handling 50k+ data points/second with real-time charts, custom widgets, and role-based access control. Reduced bundle size by 40% through code splitting.",
-        "tech": ["Vue 3", "Chart.js", "TypeScript", "Vite"],
-        "image": "dashboard",
-        "liveUrl": "#",
-        "githubUrl": "#",
-        "featured": true
+  "expertise": {
+    "label": "Expertise",
+    "title": "Built for the hard parts.",
+    "description": "I'm not a framework specialist — I'm a product engineer. This is how I work across the full product surface.",
+    "areas": {
+      "productEngineering": {
+        "title": "Product Engineering",
+        "items": ["Complex workflows", "SaaS platforms", "Operational interfaces", "Data-heavy applications"]
       },
-      {
-        "id": 2,
-        "title": "Component Library & Design System",
-        "description": "Architected a 60+ component design system with Storybook documentation, accessibility-first approach, and comprehensive test coverage. Used by 12 product teams across the organization.",
-        "tech": ["Vue", "Storybook", "SCSS", "Jest"],
-        "image": "design-system",
-        "liveUrl": "#",
-        "githubUrl": "#",
-        "featured": true
+      "frontendArchitecture": {
+        "title": "Frontend Architecture",
+        "items": ["Component systems", "Reusable UI architecture", "State management", "Design systems"]
       },
-      {
-        "id": 3,
-        "title": "E-Commerce Platform",
-        "description": "Led frontend development for a $50M/year e-commerce platform with SSR, advanced filtering, cart optimization, and PWA capabilities. Achieved 95+ Lighthouse score.",
-        "tech": ["Angular", "RxJS", "Node.js", "Redis"],
-        "image": "ecommerce",
-        "liveUrl": "#",
-        "githubUrl": "#",
-        "featured": true
+      "backendPlatform": {
+        "title": "Backend & Platform",
+        "items": ["REST APIs", "Node.js", "Laravel / Spring Boot", "Auth & role-based access"]
       },
-      {
-        "id": 4,
-        "title": "Real-Time Analytics Platform",
-        "description": "Developed WebSocket-powered analytics engine with sub-100ms updates, custom D3 visualizations, and efficient state management for monitoring 10k+ concurrent users.",
-        "tech": ["Vue", "D3.js", "WebSocket", "Pinia"],
-        "image": "analytics",
-        "liveUrl": "#",
-        "githubUrl": "#",
-        "featured": false
-      },
-      {
-        "id": 5,
-        "title": "Admin Panel Suite",
-        "description": "Created modular admin panels with 20+ pre-built modules, dynamic theming, and multi-tenant architecture. Served as foundation for 8 client projects.",
-        "tech": ["React", "Material UI", "GraphQL", "Apollo"],
-        "image": "admin",
-        "liveUrl": "#",
-        "githubUrl": "#",
-        "featured": false
-      },
-      {
-        "id": 6,
-        "title": "Mobile Banking App",
-        "description": "Built hybrid mobile app with native-like performance using React Native, biometric auth, offline-first architecture, and accessibility compliance (WCAG 2.1 AA).",
-        "tech": ["React Native", "TypeScript", "Redux", "Jest"],
-        "image": "mobile",
-        "liveUrl": "#",
-        "githubUrl": "#",
-        "featured": false
+      "productExperience": {
+        "title": "Product Experience",
+        "items": ["Dashboards", "Workflow design", "Responsive interfaces", "Performance"]
       }
-    ]
+    },
+    "techLabel": "Supporting stack",
+    "proof": {
+      "years": { "value": "5+", "label": "Years building software" },
+      "products": { "value": "3", "label": "Flagship products shipped" },
+      "domains": { "value": "4", "label": "Industries served" }
+    }
   },
   "experience": {
-    "label": "Career Journey",
-    "title": "Work Experience",
-    "description": "A timeline of professional growth and impactful contributions",
-    "list": [
-      {
-        "id": 1,
-        "company": "TechFlow Inc.",
-        "logo": "TF",
-        "role": "Senior Frontend Engineer",
-        "duration": "2022 - Present",
-        "location": "San Francisco, CA",
-        "description": "Leading frontend architecture for a B2B SaaS platform serving 500+ enterprise clients. Implemented micro-frontend architecture, reduced build times by 60%, and established code quality standards.",
-        "highlights": ["Micro-frontend Architecture", "Team Leadership", "System Design"]
-      },
-      {
-        "id": 2,
-        "company": "StartupLabs",
-        "logo": "SL",
-        "role": "Frontend Tech Lead",
-        "duration": "2020 - 2022",
-        "location": "New York, NY",
-        "description": "Grew from senior developer to tech lead, building the core product from seed to Series A. Hired and mentored 4 frontend developers, established design system used across all products.",
-        "highlights": ["Design Systems", "Mentorship", "Product Development"]
-      },
-      {
-        "id": 3,
-        "company": "Digital Agency Pro",
-        "logo": "DA",
-        "role": "Frontend Developer",
-        "duration": "2018 - 2020",
-        "location": "Austin, TX",
-        "description": "Delivered 15+ client projects including e-commerce sites, marketing campaigns, and web applications. Specialized in Vue.js and Angular frameworks with emphasis on performance.",
-        "highlights": ["Vue.js", "Angular", "Performance Optimization"]
-      }
-    ]
+    "label": "Experience",
+    "title": "Where I've done the work.",
+    "description": "Over five years building production software — from ERPs to collaboration platforms."
   },
   "contact": {
-    "label": "Get In Touch",
-    "title": "Let's Connect",
-    "description": "Have a project in mind or want to collaborate? I'd love to hear from you.",
+    "label": "Contact",
+    "title": "Have a complicated product problem?",
+    "titleAccent": "I like complicated product problems.",
+    "description": "If you're building something complex — a healthcare platform, a point of sale, a data-heavy workspace — and you need someone who can turn it into software that feels simple, let's talk.",
+    "letsTalk": "Let's talk",
     "form": {
+      "title": "Send a message",
       "name": "Name",
       "email": "Email",
       "message": "Message",
-      "namePlaceholder": "John Doe",
-      "emailPlaceholder": "john{'@'}example.com",
-      "messagePlaceholder": "Tell me about your project...",
-      "send": "Send Message",
-      "sending": "Sending..."
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "you{'@'}company.com",
+      "messagePlaceholder": "Tell me about the product you're building...",
+      "send": "Send message"
     },
     "validation": {
       "nameRequired": "Name is required",
@@ -168,28 +83,21 @@
       "messageRequired": "Message is required",
       "messageTooShort": "Message must be at least 10 characters"
     },
-    "success": "Message sent successfully!",
+    "success": "Message sent — I'll get back to you soon.",
     "info": {
       "email": "Email",
       "location": "Location"
     },
     "availability": {
-      "title": "Available for opportunities",
+      "title": "Available for new work",
       "description": "Open to full-time roles and freelance projects"
     },
     "social": "Find me on"
   },
   "footer": {
-    "tagline": "Building the future, one component at a time.",
+    "tagline": "Building software that makes complex work feel simple.",
     "navigation": "Navigation",
     "connect": "Connect",
     "copyright": "Built with Vue"
-  },
-  "data": {
-    "name": "Mohamed Ali GHarsellaoui",
-    "title": "Senior Frontend Engineer",
-    "about": "I'm a passionate frontend engineer with 6+ years of experience building high-performance web applications. I specialize in Vue.js and Angular ecosystems, with deep expertise in design systems, data visualization, and developer tooling.",
-    "email": "alex.chen@email.dev",
-    "location": "San Francisco, CA"
   }
 }

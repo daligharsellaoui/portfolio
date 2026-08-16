@@ -3,102 +3,146 @@ import { name, email, skills, social, techIcons } from './constants'
 export const portfolioDataFr = {
   name,
   title: "Ingénieur Frontend Senior",
-  tagline: "Je crée des interfaces avec Vue, Angular...",
-  about: "Je suis un ingénieur frontend passionné avec plus de 5 ans d'expérience dans le développement d'applications web performantes. expérimenté en Vue et Angular, avec une expertise approfondie en design systems et visualisation de données.",
-  skills,
+  tagline: "Je conçois des logiciels qui rendent simple le travail complexe.",
+  about: `Je suis un ingénieur produit de Tunis qui a passé les cinq dernières années à concevoir des logiciels pour des personnes dont le travail est réellement complexe — médecins, équipes de restauration, organisateurs d'événements, opérateurs d'entreprise. Mon métier : transformer des flux de travail complexes en interfaces qui semblent évidentes. Je travaille sur toute la surface produit : architecture, systèmes de composants, gestion d'état, et les petits détails qui rendent un logiciel agréable à utiliser.`,
+  location: "Tunis, Tunisie",
+  products: [
+    {
+      id: "doctor-me",
+      name: "doctor.me",
+      category: "Plateforme de gestion de cabinet médical",
+      description: "Une plateforme de santé multi-modules qui offre aux praticiens et à leur équipe un espace de travail quotidien unique — rendez-vous, consultations, ordonnances, certificats, téléconsultation et finance. Le genre de produit où chaque écran cache un flux clinique complexe derrière une interface apaisée.",
+      contribution: "Conception et développement de l'expérience frontend de l'ensemble des modules de la plateforme, transformant des flux cliniques denses en un espace de travail quotidien ciblé, que praticiens et équipes peuvent utiliser rapidement.",
+      capabilities: [
+        "Gestion des patients",
+        "Rendez-vous & workflows calendrier",
+        "Consultations",
+        "Ordonnances",
+        "Certificats & courriers",
+        "Téléconsultation",
+        "Workflows financiers",
+        "Accès par rôles",
+        "Fonctionnalités assistées par IA",
+        "Architecture multi-modules"
+      ],
+      accent: "#2dd4bf",
+      links: {}
+    },
+    {
+      id: "mepos",
+      name: "mePOS",
+      category: "Plateforme d'exploitation de restaurant",
+      description: "Une plateforme d'exploitation pour les restaurants qui connecte le point de vente, le stock, la cuisine, le CRM et l'analyse — pour qu'un restaurant puisse gérer sa journée depuis un seul système au lieu de cinq outils déconnectés.",
+      contribution: "Développement du frontend des flux opérationnels principaux — caisse, stock, cuisine et CRM — unifiés dans une interface cohérente que le personnel peut utiliser rapidement, même aux heures de pointe.",
+      capabilities: [
+        "Caisse (POS)",
+        "Gestion de stock",
+        "CRM",
+        "Workflows cuisine",
+        "Analytique",
+        "Workflows opérationnels"
+      ],
+      accent: "#f59e0b",
+      links: {}
+    }
+  ],
   projects: [
-  {
-    id: 1,
-    title: "Plateforme Reachbl",
-    description: "Conception et développement d’une plateforme moderne de réunions et webinaires avec un focus sur les expériences d’appels vidéo et les interfaces de messagerie en temps réel. Travail sur des composants UI responsives, des systèmes de chat et une architecture frontend scalable afin d’offrir une expérience fluide et intuitive.",
-    tech: ["Vue 3", "JavaScript", "SCSS", "100ms"],
-    image: "reachabl",
-    liveUrl: "https://reachabl.com/",
-    githubUrl: "#",
-    featured: true
-  },
-  {
-    id: 2,
-    title: "Bibliothèque de Composants & Design System",
-    description: "Création d’un système de composants UI réutilisables avec des patterns de design cohérents, une structure scalable et un focus sur la maintenabilité. Inclut des boutons, formulaires, cartes, tableaux et composants de mise en page.",
-    tech: ["Vue 3", "Storybook", "Design Systems"],
-    image: "design-system",
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true
-  },
-  {
-    id: 3,
-    title: "Dashboard SaaS Vue 3",
-    description: "Conception et développement d’un dashboard moderne de type SaaS avec des composants réutilisables, une interface responsive et une structure UI propre. Focus sur une architecture frontend scalable et une visualisation de données intuitive.",
-    tech: ["Vue 3", "JavaScript", "Chart.js", "SCSS"],
-    image: "dashboard",
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true
-  },
-  {
-    id: 4,
-    title: "Site Portfolio 7Digi Content Lab",
-    description: "Conception et développement d’un site portfolio responsive moderne pour 7Digi Content Lab, une marque spécialisée en stratégie digitale et création de contenu. Focus sur une UI/UX moderne, des animations fluides, des layouts responsives et une présentation visuelle professionnelle.",
-    tech: ["Vue", "JavaScript", "SCSS", "Responsive Design"],
-    image: "7digi",
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: false
-  },
-  {
-    id: 5,
-    title: "Tableau de Gestion de Tâches Kanban",
-    description: "Développement d’une application de gestion de tâches de type Kanban avec fonctionnalité drag-and-drop et organisation dynamique des tâches. Focus sur une expérience utilisateur fluide, des composants réutilisables et une interface moderne orientée productivité.",
-    tech: ["Angular", "TypeScript"],
-    image: "kanban",
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: false
-  }
-],
-experience: [
-  {
-    id: 1,
-    company: "iObeya",
-    logo: "iO",
-    role: "Développeur Frontend",
-    duration: "Septembre 2022 - Présent",
-    location: "Tunis, Tunisie",
-    description:
-      "Développement et maintenance de fonctionnalités frontend complexes en utilisant des frameworks JavaScript modernes, en respectant le design system d’iObeya.",
-    highlights: ["Micro-frontend", "Vue", "Design System", "Spring Boot"]
-  },
-  {
-    id: 2,
-    company: "Welyne",
-    logo: "We",
-    role: "Développeur Full Stack",
-    duration: "Mars 2022 - Septembre 2022",
-    location: "Tunis, Tunisie",
-    description:
-      "Développement, optimisation et maintenance de plusieurs applications : BlancLiving App, Shopvel et IMSG-ERP.",
-    highlights: ["Angular", "Laravel", "Node.js", "Flutter"]
-  },
-  {
-    id: 3,
-    company: "ASM - ALL SOFT MULTIMEDIA",
-    logo: "ASM",
-    role: "Développeur Full Stack",
-    duration: "Juin 2021 - Mars 2022",
-    location: "Sfax, Tunisie",
-    description:
-      "Développement, optimisation et maintenance d’une solution ERP : DUX-ERP en utilisant les frameworks Angular et Laravel.",
-    highlights: ["Angular", "Laravel", "Spring Boot"]
-  }
-],
+    {
+      id: 1,
+      title: "Plateforme Reachbl",
+      description: "Une plateforme de réunions et webinaires avec appels vidéo et messagerie en temps réel. Développement de l'UI responsive et des systèmes de chat qui gardent les grandes sessions en direct rapides et faciles à suivre.",
+      tech: ["Vue 3", "JavaScript", "SCSS", "100ms"],
+      image: "reachabl",
+      liveUrl: "https://reachabl.com/",
+      githubUrl: "#",
+      featured: true
+    },
+    {
+      id: 2,
+      title: "Bibliothèque de Composants & Design System",
+      description: "Un système UI réutilisable — boutons, formulaires, cartes, tableaux et primitives de mise en page — conçu pour que plusieurs produits restent cohérents sans ralentir les équipes.",
+      tech: ["Vue 3", "Storybook", "Design Systems"],
+      image: "design-system",
+      liveUrl: "#",
+      githubUrl: "#",
+      featured: false
+    },
+    {
+      id: 3,
+      title: "Dashboard SaaS Vue 3",
+      description: "Un dashboard SaaS riche en données construit à partir de composants réutilisables — graphiques, tableaux et layouts responsives lisibles sur toute taille d'écran.",
+      tech: ["Vue 3", "Chart.js", "SCSS"],
+      image: "dashboard",
+      liveUrl: "#",
+      githubUrl: "#",
+      featured: false
+    },
+    {
+      id: 4,
+      title: "Tableau Kanban de Gestion de Tâches",
+      description: "Un tableau Kanban drag-and-drop axé sur des interactions fluides et des états visuels clairs — le genre d'interface où l'organisation est tout l'enjeu.",
+      tech: ["Angular", "TypeScript"],
+      image: "kanban",
+      liveUrl: "#",
+      githubUrl: "#",
+      featured: false
+    },
+    {
+      id: 5,
+      title: "Site Portfolio 7Digi Content Lab",
+      description: "Un site portfolio responsive pour un studio de contenu digital, avec des animations fluides et une présentation visuelle forte.",
+      tech: ["Vue", "JavaScript", "SCSS"],
+      image: "7digi",
+      liveUrl: "#",
+      githubUrl: "#",
+      featured: false
+    }
+  ],
+  experience: [
+    {
+      id: 1,
+      company: "iObeya",
+      logo: "iO",
+      role: "Développeur Frontend",
+      duration: "Septembre 2022 — Présent",
+      location: "Tunis, Tunisie",
+      description: "Développement et maintenance de fonctionnalités frontend complexes dans une architecture micro-frontend, en contribuant au design system d'iObeya pour que le travail d'équipe reste cohérent à grande échelle.",
+      highlights: ["Architecture micro-frontend", "Vue", "Design system", "Spring Boot"]
+    },
+    {
+      id: 2,
+      company: "Welyne",
+      logo: "We",
+      role: "Développeur Full Stack",
+      duration: "Mars 2022 — Septembre 2022",
+      location: "Tunis, Tunisie",
+      description: "Développement, optimisation et maintenance full-stack des applications BlancLiving, Shopvel et IMSG-ERP — améliorations livrées sur des bases Angular, Laravel et Node.js.",
+      highlights: ["Angular", "Laravel", "Node.js", "Flutter"]
+    },
+    {
+      id: 3,
+      company: "ASM — All Soft Multimedia",
+      logo: "ASM",
+      role: "Développeur Full Stack",
+      duration: "Juin 2021 — Mars 2022",
+      location: "Sfax, Tunisie",
+      description: "Développement, optimisation et maintenance de DUX-ERP, une solution ERP complète, sur son frontend Angular et son backend Laravel.",
+      highlights: ["Angular", "Laravel", "ERP"]
+    }
+  ],
   contact: {
     email,
     location: "Tunis, Tunisie",
     availability: "Ouvert aux opportunités",
     social
-  }
+  },
+  navItems: [
+    { id: "home", label: "Accueil", icon: "home" },
+    { id: "work", label: "Travaux", icon: "folder" },
+    { id: "expertise", label: "Expertise", icon: "code" },
+    { id: "experience", label: "Expérience", icon: "briefcase" },
+    { id: "contact", label: "Contact", icon: "mail" }
+  ]
 }
 
-export { techIcons }
+export { techIcons, skills }

@@ -1,101 +1,16 @@
 <script setup>
-import { ref, onMounted, computed, onUnmounted, watch } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ArrowRight, Github, Linkedin, Mail } from 'lucide-vue-next'
 import { usePortfolioData } from '@/composables/usePortfolioData'
 import MgButton from '@/components/common/MgButton.vue'
-import MgBadge from '@/components/common/MgBadge.vue'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const { data: portfolioData } = usePortfolioData()
 
 const emit = defineEmits(['navigate'])
 
-const displayedText = ref('')
-const fullText = computed(() => portfolioData.value?.tagline || '')
-const isTypingComplete = ref(false)
-
 const profileImage = '/profile.jpg'
-
-const techStack = ref([
-  { name: 'Vue', color: '#42b883', x: 0, y: -145, dragging: false },
-  { name: 'Angular', color: '#dd0031', x: 138, y: -45, dragging: false },
-  { name: 'React', color: '#ff6384', x: 85, y: 117, dragging: false },
-  { name: 'JavaScript', color: '#ff4785', x: -85, y: 117, dragging: false },
-  { name: 'TypeScript', color: '#3178c6', x: -138, y: -45, dragging: false }
-])
-
-let typeInterval = null
-
-const startTyping = () => {
-  displayedText.value = ''
-  isTypingComplete.value = false
-  let index = 0
-
-  if (typeInterval) clearInterval(typeInterval)
-
-  typeInterval = setInterval(() => {
-    if (index < fullText.value.length) {
-      displayedText.value += fullText.value[index]
-      index++
-    } else {
-      clearInterval(typeInterval)
-      isTypingComplete.value = true
-    }
-  }, 40)
-}
-
-watch(locale, () => {
-  startTyping()
-})
-
-let draggedOrb = null
-let startX = 0
-let startY = 0
-let initialX = 0
-let initialY = 0
-
-const handleMouseDown = (index, event) => {
-  draggedOrb = index
-  startX = event.clientX
-  startY = event.clientY
-  initialX = techStack.value[index].x
-  initialY = techStack.value[index].y
-  techStack.value[index].dragging = true
-  document.body.style.cursor = 'grabbing'
-  document.body.style.userSelect = 'none'
-}
-
-const handleMouseMove = (event) => {
-  if (draggedOrb === null) return
-  
-  const dx = event.clientX - startX
-  const dy = event.clientY - startY
-  
-  techStack.value[draggedOrb].x = initialX + dx
-  techStack.value[draggedOrb].y = initialY + dy
-}
-
-const handleMouseUp = () => {
-  if (draggedOrb !== null) {
-    techStack.value[draggedOrb].dragging = false
-    draggedOrb = null
-    document.body.style.cursor = ''
-    document.body.style.userSelect = ''
-  }
-}
-
-onMounted(() => {
-  window.addEventListener('mousemove', handleMouseMove)
-  window.addEventListener('mouseup', handleMouseUp)
-  startTyping()
-})
-
-onUnmounted(() => {
-  window.removeEventListener('mousemove', handleMouseMove)
-  window.removeEventListener('mouseup', handleMouseUp)
-  if (typeInterval) clearInterval(typeInterval)
-})
 
 const navigateTo = (section) => {
   emit('navigate', section)
@@ -108,69 +23,78 @@ const handleImageError = () => {
 </script>
 
 <template>
-  <section class="hero">
-    <div class="hero-bg">
-      <div class="orb orb-1" />
-      <div class="orb orb-2" />
-      <div class="orb orb-3" />
+  <section
+    id="home"
+    class="hero"
+  >
+    <div
+      class="hero-bg"
+      aria-hidden="true"
+    >
+      <div class="grid-lines" />
+      <div class="ambient ambient-1" />
+      <div class="ambient ambient-2" />
     </div>
 
-    <div class="hero-container">
-      <div class="hero-content">
-        <MgBadge
-          variant="success"
-          size="medium"
-          class="animate-on-scroll"
+    <div class="hero-inner container">
+      <div class="hero-copy">
+        <p
+          v-reveal
+          class="hero-status"
         >
-          {{ t('hero.badge') }}
-        </MgBadge>
+          <span class="status-dot" />
+          {{ t('hero.available') }}
+        </p>
 
         <h1
-          class="hero-title animate-on-scroll"
-          style="animation-delay: 0.1s"
+          v-reveal="{ delay: 80 }"
+          class="hero-title"
         >
-          {{ t('hero.title', { name: portfolioData.name }) }}
+          {{ t('hero.titlePre') }}
+          <em class="accent-serif hero-accent">{{ t('hero.titleAccent') }}</em>
         </h1>
 
-        <h2
-          class="hero-subtitle animate-on-scroll"
-          style="animation-delay: 0.2s"
-        >
-          {{ t('hero.subtitle', { title: portfolioData.title }) }}
-        </h2>
-
         <p
-          class="hero-description animate-on-scroll"
-          style="animation-delay: 0.3s"
+          v-reveal="{ delay: 160 }"
+          class="hero-description"
         >
-          {{ displayedText }}<span
-            v-if="!isTypingComplete"
-            class="cursor"
-          >|</span>
+          {{ t('hero.description') }}
         </p>
 
         <div
-          class="hero-cta animate-on-scroll"
-          style="animation-delay: 0.4s"
+          v-reveal="{ delay: 240 }"
+          class="hero-meta"
+        >
+          <span class="meta-item">{{ portfolioData.title }}</span>
+          <span
+            class="meta-sep"
+            aria-hidden="true"
+          >/</span>
+          <span class="meta-item">{{ portfolioData.location }}</span>
+        </div>
+
+        <div
+          v-reveal="{ delay: 320 }"
+          class="hero-cta"
         >
           <MgButton
             variant="primary"
-            @click="navigateTo('projects')"
+            @click="navigateTo('work')"
           >
-            {{ t('hero.viewWork') }}
+            {{ t('hero.exploreWork') }}
             <ArrowRight size="18" />
           </MgButton>
           <MgButton
             variant="secondary"
             @click="navigateTo('contact')"
           >
-            {{ t('hero.getInTouch') }}
+            {{ t('hero.letsTalk') }}
           </MgButton>
         </div>
 
         <div
-          class="hero-social animate-on-scroll"
-          style="animation-delay: 0.5s"
+          v-reveal="{ delay: 480 }"
+          class="hero-social"
         >
           <MgButton
             v-if="portfolioData?.contact?.social?.github"
@@ -178,8 +102,9 @@ const handleImageError = () => {
             size="icon"
             :href="portfolioData.contact.social.github"
             target="_blank"
+            aria-label="GitHub"
           >
-            <Github size="20" />
+            <Github size="18" />
           </MgButton>
           <MgButton
             v-if="portfolioData?.contact?.social?.linkedin"
@@ -187,8 +112,9 @@ const handleImageError = () => {
             size="icon"
             :href="portfolioData.contact.social.linkedin"
             target="_blank"
+            aria-label="LinkedIn"
           >
-            <Linkedin size="20" />
+            <Linkedin size="18" />
           </MgButton>
           <MgButton
             v-if="portfolioData?.contact?.social?.upwork"
@@ -196,11 +122,12 @@ const handleImageError = () => {
             size="icon"
             :href="portfolioData.contact.social.upwork"
             target="_blank"
+            aria-label="Upwork"
           >
             <svg
               viewBox="0 0 24 24"
-              width="20"
-              height="20"
+              width="18"
+              height="18"
             >
               <path
                 fill="currentColor"
@@ -213,66 +140,66 @@ const handleImageError = () => {
             variant="glass"
             size="icon"
             :href="`mailto:${portfolioData.contact.email}`"
+            aria-label="Email"
           >
-            <Mail size="20" />
+            <Mail size="18" />
           </MgButton>
         </div>
       </div>
 
       <div
-        class="hero-visual animate-on-scroll"
-        style="animation-delay: 0.3s"
+        v-reveal="{ delay: 200 }"
+        class="hero-visual"
       >
-        <div class="profile-section">
-          <div class="profile-image-wrapper">
+        <figure class="portrait-frame">
+          <div class="portrait-image">
             <img
               v-if="!imageError"
               :src="profileImage"
-              alt="Profile"
-              class="profile-image"
+              :alt="`Portrait of ${portfolioData.name}`"
               @error="handleImageError"
             >
             <div
               v-else
-              class="profile-placeholder"
+              class="portrait-fallback"
             >
               <span>{{ portfolioData.name.charAt(0) }}</span>
             </div>
-            <div class="profile-ring" />
           </div>
           <div
-            ref="techOrbsRef"
-            class="tech-orbs"
-          >
-            <div
-              v-for="(tech, index) in techStack"
-              :key="tech.name"
-              class="tech-orb"
-              :class="{ dragging: tech.dragging }"
-              :style="{
-                '--orb-color': tech.color,
-                '--delay': `${index * 0.2}s`,
-                left: `calc(50% + ${tech.x}px)`,
-                top: `calc(50% + ${tech.y}px)`
-              }"
-              @mousedown="handleMouseDown(index, $event)"
-            >
-              <span class="tech-name">{{ tech.name }}</span>
-            </div>
-          </div>
-        </div>
+            class="frame-grid"
+            aria-hidden="true"
+          />
+          <figcaption class="portrait-caption">
+            <span class="caption-name">D.G.</span>
+            <span class="caption-role">{{ portfolioData.title }}</span>
+            <span class="caption-loc">{{ portfolioData.location }}</span>
+          </figcaption>
+        </figure>
       </div>
     </div>
 
-    <div
-      class="scroll-indicator"
-      @click="navigateTo('skills')"
+    <button
+      class="scroll-hint"
+      type="button"
+      @click="navigateTo('work')"
     >
-      <div class="mouse">
-        <div class="wheel" />
-      </div>
-      <span>{{ t('hero.scrollToExplore') }}</span>
-    </div>
+      <span>{{ t('hero.scrollHint') }}</span>
+      <svg
+        viewBox="0 0 16 16"
+        width="14"
+        height="14"
+        aria-hidden="true"
+      >
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          d="M8 2v11m0 0 4.5-4.5M8 13 3.5 8.5"
+        />
+      </svg>
+    </button>
   </section>
 </template>
 
@@ -281,346 +208,274 @@ const handleImageError = () => {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
-  padding: 120px 24px 80px;
+  padding: 140px 24px 96px;
   overflow: hidden;
+
+  @include respond-to(mobile) {
+    padding: 120px 24px 64px;
+  }
 
   &-bg {
     position: absolute;
     inset: 0;
-    overflow: hidden;
+    pointer-events: none;
   }
 
-  &-container {
-    max-width: $container-max;
-    width: 100%;
+  &-inner {
+    position: relative;
+    z-index: 1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 72px;
     align-items: center;
 
     @include respond-to(tablet) {
       grid-template-columns: 1fr;
-      text-align: center;
+      gap: 56px;
     }
   }
 
-  &-content {
-    @include respond-to(tablet) {
-      order: 2;
+  &-copy {
+    max-width: 640px;
+  }
+
+  &-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: $font-mono;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $text-secondary;
+    margin-bottom: 32px;
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: $success;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
     }
   }
 
   &-title {
-    font-size: clamp(40px, 6vw, 64px);
-    margin-bottom: 16px;
-    animation: fadeInUp 0.6s ease forwards;
-    animation-delay: 0.1s;
-  }
+    font-size: clamp(40px, 5.6vw, 76px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
 
-  &-subtitle {
-    font-size: clamp(24px, 3vw, 32px);
-    color: $text-secondary;
-    margin-bottom: 24px;
-    font-weight: 500;
+    .hero-accent {
+      display: block;
+      color: $accent-primary;
+      font-weight: 500;
+    }
   }
 
   &-description {
-    font-size: 18px;
+    font-size: 19px;
     color: $text-secondary;
-    max-width: 500px;
+    line-height: 1.65;
+    max-width: 540px;
+    margin-bottom: 28px;
+  }
+
+  &-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: $font-mono;
+    font-size: 13px;
+    color: $text-muted;
     margin-bottom: 32px;
-    line-height: 1.7;
 
-    @include respond-to(tablet) {
-      max-width: 100%;
-    }
-
-    .cursor {
-      animation: blink 1s infinite;
-      color: $accent-primary;
+    .meta-sep {
+      color: $border-color;
     }
   }
 
   &-cta {
     display: flex;
     gap: 16px;
-    margin-bottom: 32px;
-
-    @include respond-to(tablet) {
-      justify-content: center;
-    }
+    margin-bottom: 36px;
+    flex-wrap: wrap;
 
     @include respond-to(mobile) {
       flex-direction: column;
+      align-items: stretch;
+
+      :deep(.base-btn) {
+        width: 100%;
+      }
     }
   }
 
   &-social {
     display: flex;
-    gap: 16px;
-
-    @include respond-to(tablet) {
-      justify-content: center;
-    }
-  }
-
-  &-visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @include respond-to(tablet) {
-      order: 1;
-      margin-bottom: 32px;
-    }
-
-    @include respond-to(mobile) {
-      order: 1;
-      margin-bottom: 24px;
-    }
+    gap: 12px;
   }
 }
 
-.profile-section {
-  position: relative;
-  width: 360px;
-  height: 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  @include respond-to(mobile) {
-    width: 280px;
-    height: 280px;
-  }
-}
-
-.profile-image-wrapper {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  z-index: 2;
-
-  @include respond-to(mobile) {
-    width: 160px;
-    height: 160px;
-  }
-}
-
-.profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.profile-placeholder {
-  width: 100%;
-  height: 100%;
-  background: $gradient-primary;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: $font-heading;
-  font-size: 80px;
-  font-weight: 700;
-  color: $text-primary;
-
-  @include respond-to(mobile) {
-    font-size: 56px;
-  }
-}
-
-.profile-ring {
+.grid-lines {
   position: absolute;
-  inset: -12px;
-  border-radius: 50%;
-  background: $gradient-primary;
-  opacity: 0.3;
-  animation: pulse 3s infinite;
-  z-index: 1;
-
-  @include respond-to(mobile) {
-    inset: -8px;
-  }
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 60% at 70% 30%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 30%, black, transparent 75%);
 }
 
-.tech-orb {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: rgba(18, 18, 26, 0.9);
-  border: 2px solid var(--orb-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: float 4s ease-in-out infinite;
-  animation-delay: var(--delay);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-  z-index: 3;
-  cursor: grab;
-  transition: box-shadow 0.2s ease, transform 0.1s ease;
-  transform: translate(-50%, -50%);
-
-  &.dragging {
-    cursor: grabbing;
-    animation: none;
-    box-shadow: 0 0 30px var(--orb-color);
-    z-index: 100;
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-
-  @include respond-to(mobile) {
-    width: 60px;
-    height: 60px;
-  }
-
-  .tech-name {
-    font-family: $font-mono;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--orb-color);
-    text-transform: uppercase;
-    pointer-events: none;
-
-    @include respond-to(mobile) {
-      font-size: 8px;
-    }
-  }
-}
-
-.center-orb {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  background: $gradient-primary;
-  border-radius: 50%;
-  animation: pulse 3s infinite;
-  box-shadow: 0 0 40px $accent-primary;
-
-  &::after {
-    content: '{ }';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: $font-mono;
-    font-size: 20px;
-    font-weight: 700;
-    color: $text-primary;
-  }
-}
-
-.orb {
+.ambient {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(90px);
 
   &-1 {
-    width: 400px;
-    height: 400px;
-    background: rgba(99, 102, 241, 0.15);
-    top: -100px;
-    right: 10%;
-    animation: pulse 8s infinite;
+    width: 520px;
+    height: 520px;
+    background: rgba(161, 205, 244, 0.1);
+    top: -160px;
+    right: -120px;
   }
 
   &-2 {
-    width: 300px;
-    height: 300px;
-    background: rgba(139, 92, 246, 0.12);
-    bottom: -50px;
-    left: 20%;
-    animation: pulse 10s infinite;
-    animation-delay: 2s;
-  }
-
-  &-3 {
-    width: 200px;
-    height: 200px;
-    background: rgba(6, 182, 212, 0.1);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: pulse 6s infinite;
-    animation-delay: 4s;
+    width: 380px;
+    height: 380px;
+    background: rgba(161, 205, 244, 0.06);
+    bottom: -160px;
+    left: -120px;
   }
 }
 
-.scroll-indicator {
+.hero-visual {
+  display: flex;
+  justify-content: center;
+
+  @include respond-to(tablet) {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}
+
+.portrait-frame {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0;
+}
+
+.portrait-image {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(10, 10, 15, 0.55) 100%);
+    pointer-events: none;
+  }
+}
+
+.portrait-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg-tertiary;
+  font-family: $font-heading;
+  font-size: 120px;
+  font-weight: 700;
+  color: $text-secondary;
+}
+
+.frame-grid {
   position: absolute;
-  bottom: 40px;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+
+.portrait-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 0 24px;
+  color: $text-primary;
+
+  .caption-name {
+    font-family: $font-heading;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .caption-role,
+  .caption-loc {
+    font-family: $font-mono;
+    font-size: 11px;
+    color: rgba(248, 250, 252, 0.75);
+  }
+
+  .caption-loc {
+    margin-left: auto;
+  }
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 36px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
   color: $text-muted;
+  font-family: $font-mono;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 8px 16px;
   transition: color 0.3s ease;
-
-  @include respond-to(mobile) {
-    display: none;
-  }
 
   &:hover {
     color: $text-primary;
   }
 
-  span {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  svg {
+    transition: transform 0.3s ease;
   }
 
-  .mouse {
-    width: 24px;
-    height: 40px;
-    border: 2px solid currentColor;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    padding-top: 8px;
+  &:hover svg {
+    transform: translateY(2px);
   }
 
-  .wheel {
-    width: 4px;
-    height: 8px;
-    background: currentColor;
-    border-radius: 2px;
-    animation: scroll 2s infinite;
+  @include respond-to(mobile) {
+    display: none;
   }
-}
-
-@keyframes scroll {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(8px);
-    opacity: 0.5;
-  }
-}
-
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 0.6s ease forwards;
-
-  &:nth-child(1) { animation-delay: 0s; }
-  &:nth-child(2) { animation-delay: 0.1s; }
-  &:nth-child(3) { animation-delay: 0.2s; }
-  &:nth-child(4) { animation-delay: 0.3s; }
-  &:nth-child(5) { animation-delay: 0.4s; }
-  &:nth-child(6) { animation-delay: 0.5s; }
 }
 </style>
