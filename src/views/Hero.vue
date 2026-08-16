@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-vue-next'
+import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-vue-next'
 import { usePortfolioData } from '@/composables/usePortfolioData'
 import MgButton from '@/components/common/MgButton.vue'
 import WhatsAppIcon from '@/components/common/WhatsAppIcon.vue'
@@ -90,6 +90,14 @@ const handleImageError = () => {
             @click="navigateTo('contact')"
           >
             {{ t('hero.letsTalk') }}
+          </MgButton>
+          <MgButton
+            variant="ghost"
+            href="/cv.pdf"
+            download
+          >
+            <Download size="18" />
+            <span>{{ t('hero.downloadCv') }}</span>
           </MgButton>
         </div>
 

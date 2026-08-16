@@ -29,6 +29,10 @@ defineProps({
   target: {
     type: String,
     default: '_self'
+  },
+  download: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
@@ -40,6 +44,7 @@ defineProps({
     class="base-btn"
     :class="[`btn-${variant}`, `btn-${size}`, { active }]"
     :target="target"
+    :download="download || undefined"
   >
     <slot />
   </a>

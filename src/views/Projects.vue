@@ -10,8 +10,8 @@ const { data: portfolioData } = usePortfolioData()
 const products = computed(() => portfolioData.value?.products || [])
 const projects = computed(() => portfolioData.value?.projects || [])
 
-// Real product screenshots live in /public/images as {product-id}.png
-const productImage = (id) => `/images/${id}.png`
+// Real product screenshots live in /public/images as {product-id}.webp
+const productImage = (id) => `/images/${id}.webp`
 
 // Hover preview for the selected-work list
 const hoveredProject = ref(null)
