@@ -9,9 +9,9 @@
   },
   "hero": {
     "available": "Available for new work",
-    "titlePre": "I build software that makes",
+    "titlePre": "Software that makes",
     "titleAccent": "complex work feel simple.",
-    "description": "Frontend engineer focused on turning complex workflows into fast, intuitive, production-ready digital products — currently building collaboration software at iObeya.",
+    "description": "Full-stack engineer focused on turning complex workflows into fast, intuitive, production-ready digital products — currently building collaboration software at iObeya.",
     "exploreWork": "Explore my work",
     "letsTalk": "Let's talk",
     "scrollHint": "Scroll"
@@ -20,7 +20,6 @@
     "label": "Selected Products",
     "title": "Real products, built for real workflows.",
     "description": "The strongest examples of my work are production products that turned complex, multi-step operations into software people use every day.",
-    "role": "My role",
     "capabilities": "What the product covers",
     "moreLabel": "More work",
     "moreTitle": "Selected work",
@@ -65,7 +64,6 @@
     "title": "Have a complicated product problem?",
     "titleAccent": "I like complicated product problems.",
     "description": "If you're building something complex — a healthcare platform, a point of sale, a data-heavy workspace — and you need someone who can turn it into software that feels simple, let's talk.",
-    "letsTalk": "Let's talk",
     "form": {
       "title": "Send a message",
       "name": "Name",
@@ -83,9 +81,10 @@
       "messageRequired": "Message is required",
       "messageTooShort": "Message must be at least 10 characters"
     },
-    "success": "Message sent — I'll get back to you soon.",
+    "success": "Your email app should open now — the message is ready, just press send.",
     "info": {
       "email": "Email",
+      "whatsapp": "WhatsApp",
       "location": "Location"
     },
     "availability": {
@@ -96,8 +95,9 @@
   },
   "footer": {
     "tagline": "Building software that makes complex work feel simple.",
+    "description": "I partner with companies to turn complicated, high-stakes workflows into software that is fast, reliable and genuinely simple to use — whether that's a healthcare platform, a restaurant's daily operations, or a team collaboration tool.",
     "navigation": "Navigation",
     "connect": "Connect",
-    "copyright": "Built with Vue"
+    "copyright": "All rights reserved."
   }
 }

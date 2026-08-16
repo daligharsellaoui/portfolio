@@ -9,9 +9,9 @@
   },
   "hero": {
     "available": "Disponible pour de nouveaux projets",
-    "titlePre": "Je conçois des logiciels qui rendent",
-    "titleAccent": "simple le travail complexe.",
-    "description": "Ingénieur frontend dédié à transformer des flux de travail complexes en produits numériques rapides, intuitifs et prêts pour la production — actuellement chez iObeya.",
+    "titlePre": "Des logiciels qui rendent",
+    "titleAccent": "le travail complexe simple.",
+    "description": "Ingénieur full-stack dédié à transformer des flux de travail complexes en produits numériques rapides, intuitifs et prêts pour la production — actuellement chez iObeya.",
     "exploreWork": "Découvrir mon travail",
     "letsTalk": "Discutons",
     "scrollHint": "Défiler"
@@ -20,7 +20,6 @@
     "label": "Produits sélectionnés",
     "title": "De vrais produits, pour de vrais flux de travail.",
     "description": "Les exemples les plus forts de mon travail sont des produits en production qui ont transformé des opérations complexes en logiciels utilisés chaque jour.",
-    "role": "Mon rôle",
     "capabilities": "Ce que couvre le produit",
     "moreLabel": "Autres travaux",
     "moreTitle": "Travaux sélectionnés",
@@ -65,7 +64,6 @@
     "title": "Un problème produit compliqué ?",
     "titleAccent": "J'aime les problèmes produits compliqués.",
     "description": "Si vous construisez quelque chose de complexe — une plateforme de santé, une caisse, un espace de travail riche en données — et que vous cherchez quelqu'un pour le transformer en logiciel qui semble simple, discutons.",
-    "letsTalk": "Discutons",
     "form": {
       "title": "Envoyer un message",
       "name": "Nom",
@@ -83,9 +81,10 @@
       "messageRequired": "Le message est requis",
       "messageTooShort": "Le message doit contenir au moins 10 caractères"
     },
-    "success": "Message envoyé — je reviens vers vous rapidement.",
+    "success": "Votre application email devrait s'ouvrir — le message est prêt, il ne reste qu'à l'envoyer.",
     "info": {
       "email": "Email",
+      "whatsapp": "WhatsApp",
       "location": "Localisation"
     },
     "availability": {
@@ -96,8 +95,9 @@
   },
   "footer": {
     "tagline": "Construire des logiciels qui rendent simple le travail complexe.",
+    "description": "Je collabore avec les entreprises pour transformer des flux de travail complexes et sensibles en logiciels rapides, fiables et réellement simples à utiliser — qu'il s'agisse d'une plateforme de santé, des opérations quotidiennes d'un restaurant ou d'un outil de collaboration d'équipe.",
     "navigation": "Navigation",
     "connect": "Réseaux",
-    "copyright": "Créé avec Vue"
+    "copyright": "Tous droits réservés."
   }
 }

@@ -35,8 +35,22 @@ const { data: portfolioData } = usePortfolioData()
           class="exp-row"
         >
           <div class="exp-meta">
-            <span class="exp-duration">{{ exp.duration }}</span>
-            <span class="exp-company">{{ exp.company }}</span>
+            <div class="exp-logo">
+              <img
+                v-if="exp.logoImage"
+                :src="`/images/${exp.logoImage}`"
+                :alt="exp.company"
+                loading="lazy"
+              >
+              <span
+                v-else
+                class="exp-logo-fallback"
+              >{{ exp.logo }}</span>
+            </div>
+            <div class="exp-meta-text">
+              <span class="exp-duration">{{ exp.duration }}</span>
+              <span class="exp-company">{{ exp.company }}</span>
+            </div>
           </div>
 
           <div class="exp-body">
@@ -129,6 +143,48 @@ const { data: portfolioData } = usePortfolioData()
 
 .exp-meta {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  @include respond-to(mobile) {
+    gap: 12px 16px;
+
+    .exp-logo { order: 1; }
+    .exp-company { order: 2; }
+    .exp-duration { order: 3; }
+  }
+}
+
+.exp-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  border: 1px solid $border-color;
+  background: $surface-raised;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 7px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .exp-logo-fallback {
+    font-family: $font-mono;
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-secondary;
+  }
+}
+
+.exp-meta-text {
+  display: flex;
   flex-direction: column;
   gap: 8px;
 
@@ -137,6 +193,10 @@ const { data: portfolioData } = usePortfolioData()
     align-items: baseline;
     gap: 16px;
     flex-wrap: wrap;
+  }
+
+  @include respond-to(mobile) {
+    display: contents;
   }
 
   .exp-duration {

@@ -62,13 +62,17 @@ if (typeof window !== 'undefined') {
     :class="{ scrolled: isScrolled }"
   >
     <div class="navbar-container">
-      <div
+      <button
         class="navbar-logo"
+        type="button"
+        aria-label="Dali GHarsellaoui — home"
         @click="navigateTo('home')"
       >
-        <span class="logo-text">Dali</span>
-        <span class="logo-dot" />
-      </div>
+        <span
+          class="brand-mark"
+          aria-hidden="true"
+        >DG</span>
+      </button>
 
       <div class="navbar-nav">
         <MgButton
@@ -221,38 +225,44 @@ if (typeof window !== 'undefined') {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (min-width: 1920px) {
+      max-width: $container-max-xl;
+      padding: 0 40px;
+    }
   }
 
   &-logo {
     display: flex;
     align-items: center;
-    gap: 8px;
+    padding: 0;
+    background: none;
+    border: none;
     cursor: pointer;
     transition: transform 0.3s ease;
 
     &:hover {
       transform: scale(1.05);
 
-      .logo-text {
-        @include gradient-text;
+      .brand-mark {
+        box-shadow: $shadow-neon;
       }
     }
 
-    .logo-text {
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: $gradient-primary;
+      color: #0a1420;
       font-family: $font-heading;
-      font-size: 24px;
+      font-size: 14px;
       font-weight: 700;
-      color: $text-primary;
-      transition: all 0.3s ease;
-    }
-
-    .logo-dot {
-      width: 8px;
-      height: 8px;
-      background: $accent-primary;
-      border-radius: 50%;
-      box-shadow: 0 0 10px $accent-primary;
-      animation: pulse 2s infinite;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.3s ease;
     }
   }
 
@@ -261,7 +271,7 @@ if (typeof window !== 'undefined') {
     align-items: center;
     gap: 8px;
 
-    @include respond-to(mobile) {
+    @include respond-to(tablet) {
       display: none;
     }
   }
@@ -271,13 +281,13 @@ if (typeof window !== 'undefined') {
     align-items: center;
     gap: 16px;
 
-    @include respond-to(mobile) {
+    @include respond-to(tablet) {
       display: none;
     }
   }
 
   &-cta {
-    @include respond-to(mobile) {
+    @include respond-to(tablet) {
       display: none;
     }
   }
@@ -325,14 +335,14 @@ if (typeof window !== 'undefined') {
   color: $text-primary;
   padding: 8px;
 
-  @include respond-to(mobile) {
+  @include respond-to(tablet) {
     display: block;
   }
 }
 
 .mobile-menu {
   position: absolute;
-  top: 64px;
+  top: 100%;
   left: 0;
   right: 0;
   @include glassmorphism;

@@ -105,6 +105,11 @@ input, textarea {
   max-width: $container-max;
   margin: 0 auto;
   padding: 0 24px;
+
+  @media (min-width: 1920px) {
+    max-width: $container-max-xl;
+    padding: 0 40px;
+  }
 }
 
 .section {

@@ -1,11 +1,12 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Send, Github, Linkedin, CheckCircle, ArrowRight, Mail, MapPin } from 'lucide-vue-next'
+import { Send, Github, Linkedin, CheckCircle, Mail, MapPin } from 'lucide-vue-next'
 import { usePortfolioData } from '@/composables/usePortfolioData'
 import MgForm from '@/components/common/MgForm.vue'
 import MgInput from '@/components/common/MgInput.vue'
 import MgButton from '@/components/common/MgButton.vue'
+import WhatsAppIcon from '@/components/common/WhatsAppIcon.vue'
 
 const { t } = useI18n()
 const { data: portfolioData } = usePortfolioData()
@@ -22,7 +23,6 @@ const errors = reactive({
   message: ''
 })
 
-const isSubmitting = ref(false)
 const isSubmitted = ref(false)
 
 const validateEmail = (email) => {
@@ -61,22 +61,26 @@ const validateForm = () => {
   return isValid
 }
 
-const handleSubmit = async () => {
+const handleSubmit = () => {
   if (!validateForm()) return
 
-  isSubmitting.value = true
+  const recipient = portfolioData.value?.contact?.email || ''
+  const subject = `Portfolio message from ${form.name}`
+  const body = [
+    `Name: ${form.name}`,
+    `Email: ${form.email}`,
+    '',
+    form.message
+  ].join('\n')
 
-  await new Promise(resolve => setTimeout(resolve, 1500))
+  const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 
-  isSubmitting.value = false
+  window.location.href = mailtoUrl
+
   isSubmitted.value = true
-
   setTimeout(() => {
     isSubmitted.value = false
-    form.name = ''
-    form.email = ''
-    form.message = ''
-  }, 4000)
+  }, 8000)
 }
 
 const socialLinks = computed(() => {
@@ -84,7 +88,8 @@ const socialLinks = computed(() => {
   return [
     { id: 'github', icon: Github, label: 'GitHub', url: social.github },
     { id: 'linkedin', icon: Linkedin, label: 'LinkedIn', url: social.linkedin },
-    { id: 'upwork', icon: 'upwork', label: 'Upwork', url: social.upwork }
+    { id: 'upwork', icon: 'upwork', label: 'Upwork', url: social.upwork },
+    { id: 'whatsapp', icon: 'whatsapp', label: 'WhatsApp', url: social.whatsapp }
   ].filter(link => link.url)
 })
 
@@ -116,16 +121,6 @@ const formLabels = computed(() => ({
         <p class="contact-description">
           {{ t('contact.description') }}
         </p>
-        <div class="contact-cta">
-          <MgButton
-            variant="primary"
-            size="large"
-            :href="`mailto:${portfolioData?.contact?.email || ''}`"
-          >
-            {{ t('contact.letsTalk') }}
-            <ArrowRight size="18" />
-          </MgButton>
-        </div>
       </div>
 
       <div
@@ -167,17 +162,10 @@ const formLabels = computed(() => ({
           <MgButton
             type="submit"
             variant="primary"
-            :disabled="isSubmitting"
             class="submit-btn"
           >
-            <span
-              v-if="isSubmitting"
-              class="loading-spinner"
-            />
-            <template v-else>
-              <Send size="18" />
-              <span>{{ t('contact.form.send') }}</span>
-            </template>
+            <Send size="18" />
+            <span>{{ t('contact.form.send') }}</span>
           </MgButton>
 
           <Transition name="success">
@@ -200,6 +188,19 @@ const formLabels = computed(() => ({
             <span>
               <small>{{ t('contact.info.email') }}</small>
               <strong>{{ portfolioData?.contact?.email || '' }}</strong>
+            </span>
+          </a>
+
+          <a
+            class="side-row"
+            :href="portfolioData?.contact?.social?.whatsapp || '#'"
+            target="_blank"
+            rel="noopener"
+          >
+            <WhatsAppIcon size="18" />
+            <span>
+              <small>{{ t('contact.info.whatsapp') }}</small>
+              <strong>{{ portfolioData?.contact?.phone || '' }}</strong>
             </span>
           </a>
 
@@ -242,6 +243,10 @@ const formLabels = computed(() => ({
                     d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.548-1.405-.002-2.543-1.143-2.545-2.548V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"
                   />
                 </svg>
+                <WhatsAppIcon
+                  v-else-if="social.icon === 'whatsapp'"
+                  size="18"
+                />
                 <component
                   :is="social.icon"
                   v-else
@@ -268,7 +273,7 @@ const formLabels = computed(() => ({
 
 .contact-hero {
   max-width: 860px;
-  margin-bottom: 72px;
+  margin-bottom: 56px;
 
   .section-title {
     font-size: clamp(36px, 5.4vw, 64px);
@@ -316,21 +321,6 @@ const formLabels = computed(() => ({
 .submit-btn {
   width: 100%;
   position: relative;
-}
-
-.loading-spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: $text-primary;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .success-message {

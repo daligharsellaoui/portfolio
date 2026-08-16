@@ -3,7 +3,6 @@ import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ArrowUpRight } from 'lucide-vue-next'
 import { usePortfolioData } from '@/composables/usePortfolioData'
-import ProductVisual from '@/components/ProductVisual.vue'
 
 const { t } = useI18n()
 const { data: portfolioData } = usePortfolioData()
@@ -11,34 +10,64 @@ const { data: portfolioData } = usePortfolioData()
 const products = computed(() => portfolioData.value?.products || [])
 const projects = computed(() => portfolioData.value?.projects || [])
 
-// Real product screenshots, when available in /public/images.
-// Tries common extensions and falls back to the stylized mock if none exist.
-const productImages = ref({})
+// Real product screenshots live in /public/images as {product-id}.png
+const productImage = (id) => `/images/${id}.png`
 
-const IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp']
+// Hover preview for the selected-work list
+const hoveredProject = ref(null)
+const previewPos = ref({ x: 0, y: 0 })
 
-const resolveProductImage = async (product) => {
-  for (const ext of IMAGE_EXTENSIONS) {
-    const url = `/images/${product.id}.${ext}`
-    try {
-      await new Promise((resolve, reject) => {
-        const img = new Image()
-        img.onload = () => resolve(url)
-        img.onerror = () => reject(new Error('not found'))
-        img.src = url
-      })
-      productImages.value[product.id] = { url, missing: false }
-      return
-    } catch (e) {
-      // try the next extension
-    }
-  }
-  productImages.value[product.id] = { url: null, missing: true }
+const PREVIEW_WIDTH = 320
+const PREVIEW_HEIGHT = 210
+const PREVIEW_PAD = 16
+
+// Detect which project images exist so hover previews work with any file
+// dropped into /public/images — no hardcoded list to maintain.
+const projectImages = ref({})
+
+const probeImage = (name) => new Promise((resolve) => {
+  const img = new Image()
+  img.onload = () => resolve(true)
+  img.onerror = () => resolve(false)
+  img.src = `/images/${name}.jpg`
+})
+
+const loadProjectImages = async () => {
+  const names = [...new Set(projects.value.map(p => p.image).filter(Boolean))]
+  const results = await Promise.all(names.map(async (name) => [name, await probeImage(name)]))
+  results.forEach(([name, ok]) => {
+    projectImages.value[name] = ok
+  })
 }
 
-onMounted(() => {
-  products.value.forEach(resolveProductImage)
-})
+onMounted(loadProjectImages)
+
+const projectImage = (project) => (
+  project.image && projectImages.value[project.image] ? `/images/${project.image}.jpg` : null
+)
+
+const showPreview = (project, event) => {
+  hoveredProject.value = project
+  updatePreviewPos(event)
+}
+
+const updatePreviewPos = (event) => {
+  let x = event.clientX + 20
+  if (x + PREVIEW_WIDTH > window.innerWidth - PREVIEW_PAD) {
+    x = event.clientX - PREVIEW_WIDTH - 20
+  }
+
+  let y = event.clientY
+  if (y + PREVIEW_HEIGHT > window.innerHeight - PREVIEW_PAD) {
+    y = event.clientY - PREVIEW_HEIGHT
+  }
+
+  previewPos.value = { x, y }
+}
+
+const hidePreview = () => {
+  hoveredProject.value = null
+}
 </script>
 
 <template>
@@ -84,11 +113,6 @@ onMounted(() => {
           </p>
 
           <div class="case-block">
-            <span class="case-label">{{ t('work.role') }}</span>
-            <p>{{ product.contribution }}</p>
-          </div>
-
-          <div class="case-block">
             <span class="case-label">{{ t('work.capabilities') }}</span>
             <ul class="case-caps">
               <li
@@ -105,10 +129,7 @@ onMounted(() => {
           v-reveal="{ delay: 120 }"
           class="case-visual"
         >
-          <div
-            v-if="productImages[product.id] && !productImages[product.id].missing"
-            class="shot-frame"
-          >
+          <div class="shot-frame">
             <div class="shot-chrome">
               <span class="shot-dot red" />
               <span class="shot-dot yellow" />
@@ -116,16 +137,12 @@ onMounted(() => {
               <span class="shot-title">{{ product.name }}</span>
             </div>
             <img
-              :src="productImages[product.id].url"
+              :src="productImage(product.id)"
               :alt="`${product.name} — ${product.category}`"
               class="shot-image"
               loading="lazy"
             >
           </div>
-          <ProductVisual
-            v-else
-            :type="product.id"
-          />
         </div>
       </article>
 
@@ -150,6 +167,9 @@ onMounted(() => {
             v-for="(project, index) in projects"
             :key="project.id"
             class="work-row"
+            @mouseenter="showPreview(project, $event)"
+            @mousemove="updatePreviewPos"
+            @mouseleave="hidePreview"
           >
             <span class="row-index">0{{ index + 1 }}</span>
             <div class="row-main">
@@ -185,6 +205,27 @@ onMounted(() => {
             </span>
           </li>
         </ul>
+
+        <Transition name="preview">
+          <div
+            v-if="hoveredProject"
+            class="work-preview"
+            :style="{ left: `${previewPos.x}px`, top: `${previewPos.y}px` }"
+            aria-hidden="true"
+          >
+            <img
+              v-if="projectImage(hoveredProject)"
+              :src="projectImage(hoveredProject)"
+              :alt="hoveredProject.title"
+            >
+            <div
+              v-else
+              class="preview-placeholder"
+            >
+              <span>{{ hoveredProject.title }}</span>
+            </div>
+          </div>
+        </Transition>
       </div>
     </div>
   </section>
@@ -234,14 +275,14 @@ onMounted(() => {
 
 .case-study {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   gap: 64px;
   align-items: center;
   padding: 56px 0;
   border-top: 1px solid $border-color;
 
   &.reverse {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
 
     .case-copy {
       order: 2;
@@ -364,7 +405,7 @@ onMounted(() => {
 .shot-frame {
   position: relative;
   z-index: 1;
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
   background: #0f0f17;
   border: 1px solid rgba(255, 255, 255, 0.09);
@@ -401,8 +442,7 @@ onMounted(() => {
 .shot-image {
   display: block;
   width: 100%;
-  height: auto;
-  max-height: 560px;
+  aspect-ratio: 21 / 10;
   object-fit: cover;
 }
 
@@ -533,5 +573,57 @@ onMounted(() => {
 .row-link-disabled {
   opacity: 0.4;
   cursor: default;
+}
+
+.work-preview {
+  position: fixed;
+  z-index: 60;
+  width: 400px;
+  height: 262px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  background: $surface-raised;
+  pointer-events: none;
+  transform: translateY(-35%);
+
+  @media (hover: none) {
+    display: none;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.preview-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(161, 205, 244, 0.14), rgba(59, 130, 246, 0.14));
+
+  span {
+    font-family: $font-mono;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: $text-secondary;
+  }
+}
+
+.preview-enter-active,
+.preview-leave-active {
+  transition: opacity 0.18s ease;
+}
+
+.preview-enter-from,
+.preview-leave-to {
+  opacity: 0;
 }
 </style>

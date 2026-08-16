@@ -5,7 +5,8 @@ export const email = 'medali.gharsellaoui@gmail.com'
 export const social = {
   github: "https://github.com/daligharsellaoui",
   linkedin: "https://www.linkedin.com/in/mohamed-ali-gharsellaoui/",
-  upwork: "https://www.upwork.com/freelancers/~016a0cd385dc3c3e21"
+  upwork: "https://www.upwork.com/freelancers/~016a0cd385dc3c3e21",
+  whatsapp: "https://wa.me/21620319189"
 }
 
 export const techIcons = {
@@ -53,8 +54,10 @@ export const skills = {
   frontendEngineering: [
     { name: "Vue.js", icon: "vue", advanced: true },
     { name: "Angular", icon: "angular" },
+    { name: "React", icon: "react" },
     { name: "TypeScript", icon: "typescript", advanced: true },
     { name: "JavaScript", icon: "javascript", advanced: true },
+    { name: "Pinia", icon: "zap" },
     { name: "PHP", icon: "php" },
     { name: "HTML/CSS", icon: "html", advanced: true }
   ],

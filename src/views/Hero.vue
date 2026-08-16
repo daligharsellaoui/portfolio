@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { ArrowRight, Github, Linkedin, Mail } from 'lucide-vue-next'
 import { usePortfolioData } from '@/composables/usePortfolioData'
 import MgButton from '@/components/common/MgButton.vue'
+import WhatsAppIcon from '@/components/common/WhatsAppIcon.vue'
 
 const { t } = useI18n()
 const { data: portfolioData } = usePortfolioData()
@@ -136,6 +137,16 @@ const handleImageError = () => {
             </svg>
           </MgButton>
           <MgButton
+            v-if="portfolioData?.contact?.social?.whatsapp"
+            variant="glass"
+            size="icon"
+            :href="portfolioData.contact.social.whatsapp"
+            target="_blank"
+            aria-label="WhatsApp"
+          >
+            <WhatsAppIcon size="18" />
+          </MgButton>
+          <MgButton
             v-if="portfolioData?.contact?.email"
             variant="glass"
             size="icon"
@@ -213,7 +224,7 @@ const handleImageError = () => {
   overflow: hidden;
 
   @include respond-to(mobile) {
-    padding: 120px 24px 64px;
+    padding: 96px 24px 56px;
   }
 
   &-bg {
@@ -227,17 +238,47 @@ const handleImageError = () => {
     z-index: 1;
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: 72px;
+    gap: 64px;
     align-items: center;
 
     @include respond-to(tablet) {
       grid-template-columns: 1fr;
       gap: 56px;
     }
+
+    @include respond-to(mobile) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.66fr);
+      grid-template-areas:
+        'status status'
+        'title visual'
+        'desc desc'
+        'meta meta'
+        'cta cta'
+        'social social';
+      column-gap: 24px;
+      row-gap: 0;
+      align-items: center;
+
+      .hero-status { grid-area: status; }
+      .hero-title { grid-area: title; }
+      .hero-description { grid-area: desc; }
+      .hero-meta { grid-area: meta; }
+      .hero-cta { grid-area: cta; }
+      .hero-social { grid-area: social; }
+      .hero-visual {
+        grid-area: visual;
+        align-self: start;
+        padding-top: 6px;
+      }
+    }
   }
 
   &-copy {
-    max-width: 640px;
+    max-width: 680px;
+
+    @include respond-to(mobile) {
+      display: contents;
+    }
   }
 
   &-status {
@@ -249,7 +290,7 @@ const handleImageError = () => {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: $text-secondary;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 
     .status-dot {
       width: 8px;
@@ -261,11 +302,11 @@ const handleImageError = () => {
   }
 
   &-title {
-    font-size: clamp(40px, 5.6vw, 76px);
+    font-size: clamp(28px, 4.8vw, 64px);
     font-weight: 700;
-    line-height: 1.05;
+    line-height: 1.08;
     letter-spacing: -0.03em;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 
     .hero-accent {
       display: block;
@@ -279,7 +320,11 @@ const handleImageError = () => {
     color: $text-secondary;
     line-height: 1.65;
     max-width: 540px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
+
+    @include respond-to(mobile) {
+      font-size: 17px;
+    }
   }
 
   &-meta {
@@ -289,7 +334,7 @@ const handleImageError = () => {
     font-family: $font-mono;
     font-size: 13px;
     color: $text-muted;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 
     .meta-sep {
       color: $border-color;
@@ -299,7 +344,7 @@ const handleImageError = () => {
   &-cta {
     display: flex;
     gap: 16px;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
     flex-wrap: wrap;
 
     @include respond-to(mobile) {
@@ -356,8 +401,12 @@ const handleImageError = () => {
   justify-content: center;
 
   @include respond-to(tablet) {
-    max-width: 420px;
+    max-width: 400px;
     margin: 0 auto;
+  }
+
+  @include respond-to(mobile) {
+    max-width: 280px;
   }
 }
 
@@ -372,14 +421,13 @@ const handleImageError = () => {
   position: relative;
   border-radius: 18px;
   overflow: hidden;
-  aspect-ratio: 4 / 5;
   background: $bg-secondary;
   border: 1px solid $border-color;
 
   img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    display: block;
   }
 
   &::after {
@@ -393,7 +441,7 @@ const handleImageError = () => {
 
 .portrait-fallback {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4 / 5;
   display: flex;
   align-items: center;
   justify-content: center;
