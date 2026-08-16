@@ -138,19 +138,23 @@ const formLabels = computed(() => ({
     class="contact"
   >
     <div class="container">
-      <div
+      <header
         v-reveal
-        class="contact-hero"
+        class="contact-header"
       >
-        <span class="section-label">{{ t('contact.label') }}</span>
-        <h2 class="contact-title">
-          {{ t('contact.title') }}
+        <div class="header-left">
+          <span class="section-label">{{ t('contact.label') }}</span>
+          <h2 class="section-title">
+            {{ t('contact.title') }}
+          </h2>
+        </div>
+        <div class="header-right">
           <em class="accent-serif contact-accent">{{ t('contact.titleAccent') }}</em>
-        </h2>
-        <p class="contact-description">
-          {{ t('contact.description') }}
-        </p>
-      </div>
+          <p class="header-description">
+            {{ t('contact.description') }}
+          </p>
+        </div>
+      </header>
 
       <div
         v-reveal
@@ -322,27 +326,42 @@ const formLabels = computed(() => ({
   }
 }
 
-.contact-hero {
-  max-width: 860px;
+.contact-header {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: end;
   margin-bottom: 56px;
+
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 
   .section-title {
     font-size: clamp(36px, 5.4vw, 64px);
+    margin-bottom: 0;
     letter-spacing: -0.02em;
-    margin-bottom: 24px;
   }
 
-  .contact-accent {
-    display: block;
-    color: $accent-primary;
-  }
+  .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
 
-  .contact-description {
-    font-size: 18px;
-    line-height: 1.7;
-    color: $text-secondary;
-    max-width: 620px;
-    margin-bottom: 36px;
+    .contact-accent {
+      color: $accent-primary;
+      font-size: clamp(20px, 2.5vw, 28px);
+    }
+
+    .header-description {
+      font-size: 17px;
+      color: $text-secondary;
+      line-height: 1.65;
+      max-width: 440px;
+      margin-bottom: 0;
+    }
   }
 }
 
