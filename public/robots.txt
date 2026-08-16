@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dali-gharsellaoui.vercel.app/sitemap.xml

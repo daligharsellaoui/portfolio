@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, watch, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useTheme } from '@/composables/useTheme'
 import Navbar from './components/Navbar.vue'
 import Hero from './views/Hero.vue'
@@ -10,6 +11,12 @@ import Contact from './views/Contact.vue'
 import Footer from './components/Footer.vue'
 
 useTheme()
+
+// Keep the document language in sync with the UI locale (SEO/a11y).
+const { locale } = useI18n()
+watch(locale, (lang) => {
+  document.documentElement.lang = lang || 'en'
+}, { immediate: true })
 
 const activeSection = ref('home')
 
