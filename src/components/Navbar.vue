@@ -113,7 +113,6 @@ if (typeof window !== 'undefined') {
         >
           <template #trigger>
             <Globe size="18" />
-            <span>{{ locale.toUpperCase() }}</span>
           </template>
         </MgDropdown>
 

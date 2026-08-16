@@ -83,13 +83,13 @@ onUnmounted(() => {
 .dropdown-trigger {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   @include glassmorphism;
-  border-radius: $radius-input;
+  border-radius: $radius-button;
   color: $text-secondary;
-  font-size: 14px;
-  font-weight: 500;
   transition: all 0.3s ease;
 
   &:hover {
