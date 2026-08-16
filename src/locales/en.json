@@ -72,7 +72,8 @@
       "namePlaceholder": "Your name",
       "emailPlaceholder": "you{'@'}company.com",
       "messagePlaceholder": "Tell me about the product you're building...",
-      "send": "Send message"
+      "send": "Send message",
+      "sending": "Sending…"
     },
     "validation": {
       "nameRequired": "Name is required",
@@ -81,7 +82,8 @@
       "messageRequired": "Message is required",
       "messageTooShort": "Message must be at least 10 characters"
     },
-    "success": "Your email app should open now — the message is ready, just press send.",
+    "success": "Message sent — I'll get back to you soon.",
+    "fallbackNotice": "Couldn't reach the server — your email app is opening instead, just press send.",
     "info": {
       "email": "Email",
       "whatsapp": "WhatsApp",

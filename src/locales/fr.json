@@ -72,7 +72,8 @@
       "namePlaceholder": "Votre nom",
       "emailPlaceholder": "vous{'@'}entreprise.com",
       "messagePlaceholder": "Parlez-moi du produit que vous construisez...",
-      "send": "Envoyer"
+      "send": "Envoyer",
+      "sending": "Envoi…"
     },
     "validation": {
       "nameRequired": "Le nom est requis",
@@ -81,7 +82,8 @@
       "messageRequired": "Le message est requis",
       "messageTooShort": "Le message doit contenir au moins 10 caractères"
     },
-    "success": "Votre application email devrait s'ouvrir — le message est prêt, il ne reste qu'à l'envoyer.",
+    "success": "Message envoyé — je reviens vers vous rapidement.",
+    "fallbackNotice": "Serveur injoignable — votre application email s'ouvre à la place, il ne reste qu'à envoyer.",
     "info": {
       "email": "Email",
       "whatsapp": "WhatsApp",

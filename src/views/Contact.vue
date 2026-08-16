@@ -24,6 +24,8 @@ const errors = reactive({
 })
 
 const isSubmitted = ref(false)
+const isSending = ref(false)
+const fallbackNotice = ref(false)
 
 const validateEmail = (email) => {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -61,9 +63,7 @@ const validateForm = () => {
   return isValid
 }
 
-const handleSubmit = () => {
-  if (!validateForm()) return
-
+const openMailto = () => {
   const recipient = portfolioData.value?.contact?.email || ''
   const subject = `Portfolio message from ${form.name}`
   const body = [
@@ -74,13 +74,41 @@ const handleSubmit = () => {
   ].join('\n')
 
   const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-
   window.location.href = mailtoUrl
+}
 
-  isSubmitted.value = true
-  setTimeout(() => {
-    isSubmitted.value = false
-  }, 8000)
+const handleSubmit = async () => {
+  if (!validateForm() || isSending.value) return
+
+  isSending.value = true
+  isSubmitted.value = false
+  fallbackNotice.value = false
+
+  try {
+    const res = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: form.name, email: form.email, message: form.message })
+    })
+    if (!res.ok) throw new Error('send failed')
+
+    isSubmitted.value = true
+    form.name = ''
+    form.email = ''
+    form.message = ''
+    setTimeout(() => {
+      isSubmitted.value = false
+    }, 8000)
+  } catch (error) {
+    // Server unreachable (e.g. local dev) → fall back to the visitor's email client
+    fallbackNotice.value = true
+    openMailto()
+    setTimeout(() => {
+      fallbackNotice.value = false
+    }, 10000)
+  } finally {
+    isSending.value = false
+  }
 }
 
 const socialLinks = computed(() => {
@@ -163,9 +191,10 @@ const formLabels = computed(() => ({
             type="submit"
             variant="primary"
             class="submit-btn"
+            :disabled="isSending"
           >
             <Send size="18" />
-            <span>{{ t('contact.form.send') }}</span>
+            <span>{{ isSending ? t('contact.form.sending') : t('contact.form.send') }}</span>
           </MgButton>
 
           <Transition name="success">
@@ -175,6 +204,16 @@ const formLabels = computed(() => ({
             >
               <CheckCircle size="20" />
               <span>{{ t('contact.success') }}</span>
+            </div>
+          </Transition>
+
+          <Transition name="success">
+            <div
+              v-if="fallbackNotice"
+              class="success-message fallback-notice"
+            >
+              <CheckCircle size="20" />
+              <span>{{ t('contact.fallbackNotice') }}</span>
             </div>
           </Transition>
         </MgForm>
@@ -335,6 +374,12 @@ const formLabels = computed(() => ({
   border-radius: 12px;
   color: $success;
   font-weight: 500;
+
+  &.fallback-notice {
+    background: rgba(161, 205, 244, 0.08);
+    border-color: rgba(161, 205, 244, 0.25);
+    color: $accent-primary;
+  }
 }
 
 .success-enter-active,

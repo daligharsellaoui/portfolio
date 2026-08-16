@@ -476,6 +476,10 @@ const handleImageError = () => {
   padding: 0 24px;
   color: $text-primary;
 
+  @include respond-to(mobile) {
+    display: none;
+  }
+
   .caption-name {
     font-family: $font-heading;
     font-size: 18px;
