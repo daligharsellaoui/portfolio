@@ -48,11 +48,11 @@ export const portfolioDataFr = {
   projects: [
     {
       id: 1,
-      title: "Plateforme Reachbl",
+      title: "Plateforme de visioconférence",
       description: "Une plateforme de réunions et webinaires avec appels vidéo et messagerie en temps réel. Développement de l'UI responsive et des systèmes de chat qui gardent les grandes sessions en direct rapides et faciles à suivre.",
       tech: ["Vue 3", "JavaScript", "SCSS", "100ms"],
       image: "reachabl",
-      liveUrl: "https://reachabl.com/",
+      liveUrl: "",
       githubUrl: "#",
       featured: true
     },
